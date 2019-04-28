@@ -22,7 +22,6 @@ export default {
   },
   computed: {
     hide() {
-      console.log(this.$route.path);
       return this.$route.path !== '/login';
     },
   },

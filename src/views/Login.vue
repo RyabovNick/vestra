@@ -79,10 +79,16 @@ export default {
     submit() {
       this.$validator.validate().then(res => {
         if (res) {
-          // send request to server
-          this.msg =
-            'Неправильный логин или пароль, пожалуйста, проверьте введённые данные';
-          this.alert = true;
+          this.login({ username: this.name, password: this.password })
+            .then(() => {
+              console.log('success login');
+              this.$router.push({ name: 'home' });
+            })
+            .catch(err => {
+              this.msg =
+                'Неправильный логин или пароль, пожалуйста, проверьте введённые данные';
+              this.alert = true;
+            });
         }
       });
     },

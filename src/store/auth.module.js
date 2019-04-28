@@ -6,7 +6,7 @@ import { SET_AUTH, PURGE_AUTH, SET_ERROR } from './mutations.type';
 const state = {
   errors: null,
   user: {},
-  isAuthenticated: !!JwtService.getToken(),
+  isAuthenticated: false,
 };
 
 const getters = {
@@ -20,15 +20,15 @@ const getters = {
 
 const actions = {
   [LOGIN](context, { username, password }) {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       ApiService.post('login', { username, password })
         .then(({ data }) => {
           context.commit(SET_AUTH, data.user);
+          JwtService.saveToken(data.user.token);
           resolve(data);
         })
-        .catch(({ response }) => {
-          console.log('response: ', response);
-          context.commit(SET_ERROR, response.data.message);
+        .catch(error => {
+          reject(error);
         });
     });
   },
@@ -36,18 +36,22 @@ const actions = {
     context.commit(PURGE_AUTH);
   },
   [CHECK_AUTH](context) {
-    if (JwtService.getToken()) {
-      ApiService.setHeader();
-      ApiService.get('user')
-        .then(({ data }) => {
-          context.commit(SET_AUTH, data.user);
-        })
-        .catch(({ response }) => {
-          context.commit(SET_ERROR, response.data.errors);
-        });
-    } else {
-      context.commit(PURGE_AUTH);
-    }
+    return new Promise((resolve, reject) => {
+      if (JwtService.getToken()) {
+        ApiService.setHeader();
+        ApiService.get('tokenValidation')
+          .then(res => {
+            context.commit(SET_AUTH, res);
+            resolve(res);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      } else {
+        context.commit(PURGE_AUTH);
+        reject(new Error('Token does not exist'));
+      }
+    });
   },
 };
 
@@ -59,7 +63,6 @@ const mutations = {
     state.isAuthenticated = true;
     state.user = user;
     state.errors = {};
-    JwtService.saveToken(state.user.token);
   },
   [PURGE_AUTH](state) {
     state.isAuthenticated = false;
@@ -70,6 +73,7 @@ const mutations = {
 };
 
 export default {
+  namespaced: true,
   state,
   actions,
   mutations,

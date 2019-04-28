@@ -9,6 +9,7 @@ export default {
   },
 
   saveToken(accessToken) {
+    console.log('jwt', this.getToken());
     window.localStorage.setItem(ID_ACCESS_TOKEN, accessToken);
   },
 
