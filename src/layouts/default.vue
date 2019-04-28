@@ -54,10 +54,10 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="blue darken-3" dark app fixed>
+    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="primary" dark app fixed>
       <v-toolbar-title class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span class="hidden-sm-and-down test">Колледж университета "Дубна"</span>
+        <span class="hidden-sm-and-down test">Vestra</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <div v-for="(item, index) in toolbar" :key="index" class="toolbar__items">
@@ -84,108 +84,26 @@ export default {
     dialog: false,
     drawer: null,
     items: [
-      { icon: "home", text: "Главная", link: "/" },
-      { icon: "account_balance", text: "Страницы", link: "/pages" },
+      { icon: 'home', text: 'Главная', link: '/' },
+      { icon: 'account_balance', text: '1', link: '/' },
       {
-        icon: "keyboard_arrow_up",
-        "icon-alt": "keyboard_arrow_down",
-        text: "Сведения об образовательной организации",
+        icon: 'keyboard_arrow_up',
+        'icon-alt': 'keyboard_arrow_down',
+        text: 'Вложенное меню',
         model: false,
         children: [
-          { text: "Основные сведения", link: "/sveden/common" },
+          { text: '1', link: '/' },
           {
-            text: "Структура и органы управления образовательной организацией",
-            link: "/sveden/struct"
+            text: '2',
+            link: '/',
           },
-          {
-            text: "Срок действия аккредитации",
-            link: "/sveden/eduAccred"
-          },
-          {
-            text: "Образование",
-            link: "/sveden/education"
-          },
-          {
-            text: "Численость обучающихся",
-            link: "/sveden/eduChislen"
-          },
-          {
-            text: "Информация о приёме",
-            link: "/sveden/eduPriem"
-          },
-          {
-            text: "Информация о переводе, восстановлении, отчислении",
-            link: "/sveden/eduPerevod"
-          },
-          {
-            text: "Образовательные стандарты",
-            link: "/sveden/eduStandarts"
-          },
-          {
-            text: "Руководство. Педагогический (научно-педагогический) состав",
-            link: "/sveden/employees"
-          },
-          {
-            text: "Материально-техническое обеспечение (Кабинеты)",
-            link: "/sveden/cabinets"
-          },
-          {
-            text: "Привязать кабинет к программе",
-            link: "/sveden/educabinets"
-          },
-          {
-            text: "Сведения о наличии библиотек, объектов спорта",
-            link: "/sveden/purposelibr"
-          },
-          {
-            text:
-              "Сведения о доступе к электронной информационно-образовательной среде",
-            link: "/sveden/purposeeios"
-          },
-          {
-            text: "Стипендии и иные виды материальной поддержки",
-            link: "/sveden/grants"
-          },
-          {
-            text: "Локальные нормативные акты",
-            link: "/sveden/grantsdocs"
-          },
-          {
-            text:
-              "Наличие общежития, количество жилых помещений в общежитии для иногородних обучающихся",
-            link: "/sveden/hostelinfo"
-          },
-          {
-            text: "Вакантные места для приема (перевода)",
-            link: "/sveden/vacant"
-          }
-        ]
+        ],
       },
-      { icon: "accessible", text: "Доступная среда", link: "/environment" },
-      { icon: "contacts", text: "Добавить новость", link: "/addnews" },
-      {
-        icon: "add_to_photos",
-        text: "Добавить фото к новостям",
-        link: "/addnewsfiles"
-      },
-      {
-        icon: "add_a_photo",
-        text: "Фотографии на главной",
-        link: "/gallery"
-      },
-      {
-        icon: "cloud_upload",
-        text: "Загрузить файлы",
-        link: "/fileupload"
-      },
-      {
-        icon: "history",
-        text: "История изменения страниц",
-        link: "/history"
-      }
+      { icon: 'accessible', text: 'Меню 3', link: '/' },
     ],
-    toolbar: [{ icon: "home", text: "Главная", link: "/" }]
-  })
+    toolbar: [{ icon: 'home', text: 'Главная', link: '/test' }],
+  }),
+
   // computed: {
   //   ...mapGetters(["currentUser", "isAuthenticated"])
   // },
@@ -198,8 +116,6 @@ export default {
   // }
 };
 </script>
-
-    
 <style>
 .btn {
   min-width: 3.2em;
