@@ -85,7 +85,7 @@ export default {
     drawer: null,
     items: [
       { icon: 'home', text: 'Главная', link: '/' },
-      { icon: 'account_balance', text: '1', link: '/' },
+      { icon: 'account_balance', text: 'Личный кабинет', link: '/personal' },
       {
         icon: 'keyboard_arrow_up',
         'icon-alt': 'keyboard_arrow_down',

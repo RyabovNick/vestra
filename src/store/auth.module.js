@@ -1,11 +1,11 @@
 import ApiService from '@/lib/api.service';
 import JwtService from '@/lib/jwt.service';
 import { LOGIN, LOGOUT, CHECK_AUTH } from './actions.type';
-import { SET_AUTH, PURGE_AUTH, SET_ERROR } from './mutations.type';
+import { SET_AUTH, PURGE_AUTH } from './mutations.type';
 
 const state = {
   errors: null,
-  user: {},
+  user: [],
   isAuthenticated: false,
 };
 
@@ -41,7 +41,7 @@ const actions = {
         ApiService.setHeader();
         ApiService.get('tokenValidation')
           .then(res => {
-            context.commit(SET_AUTH, res);
+            context.commit(SET_AUTH, res.data);
             resolve(res);
           })
           .catch(err => {
@@ -56,18 +56,15 @@ const actions = {
 };
 
 const mutations = {
-  [SET_ERROR](state, error) {
-    state.errors = error;
-  },
   [SET_AUTH](state, user) {
     state.isAuthenticated = true;
     state.user = user;
-    state.errors = {};
+    state.errors = null;
   },
   [PURGE_AUTH](state) {
     state.isAuthenticated = false;
-    state.user = {};
-    state.errors = {};
+    state.user = [];
+    state.errors = null;
     JwtService.destroyToken();
   },
 };
