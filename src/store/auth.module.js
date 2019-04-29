@@ -1,7 +1,8 @@
 import ApiService from '@/lib/api.service';
 import JwtService from '@/lib/jwt.service';
-import { LOGIN, LOGOUT, CHECK_AUTH } from './actions.type';
+import { LOGIN, LOGOUT, CHECK_AUTH, SUBSCRIBE } from './actions.type';
 import { SET_AUTH, PURGE_AUTH } from './mutations.type';
+import axios from 'axios';
 
 const state = {
   errors: null,
@@ -25,6 +26,7 @@ const actions = {
         .then(({ data }) => {
           context.commit(SET_AUTH, data.user);
           JwtService.saveToken(data.user.token);
+          context.dispatch(SUBSCRIBE);
           resolve(data);
         })
         .catch(error => {
@@ -52,6 +54,59 @@ const actions = {
         reject(new Error('Token does not exist'));
       }
     });
+  },
+  [SUBSCRIBE](context) {
+    console.log('In subscribe');
+    try {
+      /* используем глобальную переменную, созданную в 
+      main.js */
+      const messaging = this._vm.$firebase.messaging();
+      messaging.usePublicVapidKey(process.env.VUE_APP_publicVapidKey);
+
+      messaging
+        .requestPermission()
+        .then(() => {
+          // Get Token
+          messaging.getToken().then(token => {
+            // отправить токен на сервер
+            // и группу, чтобы подписать на данный топик
+            axios
+              .post('http://localhost:3012/api/subscribe', {
+                token: token,
+                topic: 'all',
+              })
+              .then(res => {
+                console.log(res);
+              })
+              .catch(err => {
+                console.log(err);
+              });
+
+            console.log(token);
+          });
+
+          // Refresh token monitoring
+          messaging.onTokenRefresh(() => {
+            messaging
+              .getToken()
+              .then(refreshedToken => {
+                console.log('Token refreshed');
+                // Indicate that the new Instance ID token has not yet been sent to the
+                // app server.
+                // Send Instance ID token to app server.
+              })
+              .catch(err => {
+                console.log('Unable to retrieve refreshed token ', err);
+              });
+          });
+        })
+        .catch(err => {
+          console.log('Unable to get permission to notify.', err);
+        });
+    } catch (err) {
+      console.log('err: ', err);
+      console.log("Firebase API doesn't support :(");
+    }
   },
 };
 

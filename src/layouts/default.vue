@@ -52,6 +52,16 @@
             </router-link>
           </v-list-tile>
         </template>
+        <template>
+          <v-list-tile @click="logout()">
+            <v-list-tile-action>
+              <v-icon>exit_to_app</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Выход</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </template>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="primary" dark app fixed>
@@ -79,6 +89,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   data: () => ({
     dialog: false,
@@ -86,6 +98,7 @@ export default {
     items: [
       { icon: 'home', text: 'Главная', link: '/' },
       { icon: 'account_balance', text: 'Личный кабинет', link: '/personal' },
+      { icon: 'account_balance', text: 'Отправить сообщение', link: '/push' },
       {
         icon: 'keyboard_arrow_up',
         'icon-alt': 'keyboard_arrow_down',
@@ -104,16 +117,19 @@ export default {
     toolbar: [{ icon: 'home', text: 'Главная', link: '/test' }],
   }),
 
-  // computed: {
-  //   ...mapGetters(["currentUser", "isAuthenticated"])
-  // },
-  // methods: {
-  //   logout() {
-  //     this.$store.dispatch(LOGOUT).then(() => {
-  //       this.$router.push({ name: "Login" });
-  //     });
-  //   }
-  // }
+  computed: {
+    // ...mapGetters(["currentUser", "isAuthenticated"])
+    ...mapActions({
+      userLogout: 'auth/logout',
+    }),
+  },
+  methods: {
+    logout() {
+      this.userLogout.then(() => {
+        this.$router.push({ name: 'login' });
+      });
+    },
+  },
 };
 </script>
 <style>

@@ -6,11 +6,10 @@
           <v-toolbar dark color="primary">
             <v-toolbar-title>Персональная информация</v-toolbar-title>
           </v-toolbar>
-          {{ user }}
           <v-card-text
             v-for="(item, i) in userFields"
             :key="i"
-          >{{ item.name }}: {{$store.state.auth.user[item.value]}}</v-card-text>
+          >{{ item.name }}: {{user()[item.value]}}</v-card-text>
         </v-card>
       </v-flex>
     </v-layout>
@@ -18,7 +17,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 export default {
   data: () => ({
     userFields: [
@@ -42,4 +41,7 @@ export default {
 </script>
 
 <style>
+.v-toolbar__title {
+  padding-left: 1em;
+}
 </style>
