@@ -112,7 +112,7 @@ export default {
           },
         ],
       },
-      { icon: 'accessible', text: 'Меню 3', link: '/' },
+      { icon: 'accessible', text: 'Расписание', link: '/schedule' },
     ],
     toolbar: [{ icon: 'home', text: 'Главная', link: '/test' }],
   }),

@@ -2,6 +2,7 @@ import Home from './views/Home';
 import Login from './views/Login';
 import Personal from './views/Personal';
 import Push from './views/Push';
+import Schedule from './views/Schedule';
 
 export const routes = [
   {
@@ -32,6 +33,11 @@ export const routes = [
     path: '/push',
     name: 'push',
     component: Push,
+  },
+  {
+    path: '/schedule',
+    name: 'schedule',
+    component: Schedule,
   },
 ];
 

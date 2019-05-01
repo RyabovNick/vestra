@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-restricted-globals */
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
 

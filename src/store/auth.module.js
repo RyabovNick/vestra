@@ -55,11 +55,12 @@ const actions = {
       }
     });
   },
-  [SUBSCRIBE](context) {
+  [SUBSCRIBE]() {
     console.log('In subscribe');
     try {
       /* используем глобальную переменную, созданную в 
       main.js */
+      // eslint-disable-next-line no-underscore-dangle
       const messaging = this._vm.$firebase.messaging();
       messaging.usePublicVapidKey(process.env.VUE_APP_publicVapidKey);
 
@@ -71,9 +72,9 @@ const actions = {
             // отправить токен на сервер
             // и группу, чтобы подписать на данный топик
             axios
-              .post('http://localhost:3012/api/subscribe', {
-                token: token,
-                topic: 'all',
+              .post('https://unidb.ru:8460/api/subscribe', {
+                token,
+                common: true,
               })
               .then(res => {
                 console.log(res);
@@ -90,7 +91,7 @@ const actions = {
             messaging
               .getToken()
               .then(refreshedToken => {
-                console.log('Token refreshed');
+                console.log('Token refreshed', refreshedToken);
                 // Indicate that the new Instance ID token has not yet been sent to the
                 // app server.
                 // Send Instance ID token to app server.

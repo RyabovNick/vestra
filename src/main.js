@@ -5,6 +5,7 @@ import App from './App';
 import router from './router';
 import store from '@/store';
 import './registerServiceWorker';
+// eslint-disable-next-line import/no-unresolved
 import * as firebase from 'firebase';
 import ApiService from '@/lib/api.service';
 

@@ -44,7 +44,7 @@ export default {
     // тут ещё добавить от кого сообщение
     sendPush() {
       axios
-        .post('http://localhost:3012/api/push', {
+        .post('https://unidb.ru:8460/api/push', {
           title: this.title,
           content: this.content,
           logo: this.logo,
