@@ -3,6 +3,7 @@ import Login from './views/Login';
 import Personal from './views/Personal';
 import Push from './views/Push';
 import Schedule from './views/Schedule';
+import MySchedule from './views/MySchedule';
 
 export const routes = [
   {
@@ -38,6 +39,11 @@ export const routes = [
     path: '/schedule',
     name: 'schedule',
     component: Schedule,
+  },
+  {
+    path: '/myschedule',
+    name: 'myschedule',
+    component: MySchedule,
   },
 ];
 

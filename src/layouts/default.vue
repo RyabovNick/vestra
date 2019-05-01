@@ -64,7 +64,13 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="primary" dark app fixed>
+    <v-toolbar
+      :clipped-left="$vuetify.breakpoint.lgAndUp"
+      color="primary"
+      dark
+      app
+      fixed
+    >
       <v-toolbar-title class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span class="hidden-sm-and-down test">Vestra</span>
@@ -74,7 +80,10 @@
         <router-link class="btn btn--flat btn--router" :to="item.link">
           <div class="btn__content">
             <span class="hidden-sm-and-down">{{ item.text }}</span>
-            <i aria-hidden="true" class="icon icon--right material-icons">{{ item.icon }}</i>
+            <i
+              aria-hidden="true"
+              class="icon icon--right material-icons"
+            >{{ item.icon }}</i>
           </div>
         </router-link>
       </div>
@@ -113,6 +122,7 @@ export default {
         ],
       },
       { icon: 'accessible', text: 'Расписание', link: '/schedule' },
+      { icon: 'accessible', text: 'Моё расписание', link: '/myschedule' },
     ],
     toolbar: [{ icon: 'home', text: 'Главная', link: '/test' }],
   }),

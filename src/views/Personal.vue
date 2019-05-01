@@ -9,7 +9,7 @@
           <v-card-text
             v-for="(item, i) in userFields"
             :key="i"
-          >{{ item.name }}: {{user()[item.value]}}</v-card-text>
+          >{{ item.name }}: {{user[item.value]}}</v-card-text>
         </v-card>
       </v-flex>
     </v-layout>
@@ -32,7 +32,7 @@ export default {
       },
     ],
   }),
-  methods: {
+  computed: {
     ...mapGetters({
       user: 'auth/currentUser',
     }),
