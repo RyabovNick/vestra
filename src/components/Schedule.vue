@@ -1,15 +1,30 @@
 <template>
   <v-container>
     <v-card v-for="(lesson, i) in groupSchedule" :key="i">
-      <v-list two-line subheader>
-        <v-subheader>{{dayRu(lesson.Day)[0].ruName}}</v-subheader>
+      <v-list v-if="lesson.Lesson_ID === null" two-line subheader>
+        <v-subheader>{{ days[lesson.Day - 1] }}</v-subheader>
 
-        <v-list-tile avatar v-for="(pair, i) in lesson.Pairs" :key="i">
+        <v-list-tile avatar>
           <v-list-tile-content>
-            <v-list-tile-sub-title>{{lessons[pair.PairNumber-1].name}}</v-list-tile-sub-title>
-            <v-list-tile-title
-              v-bind:class="[pair.LessonType === 'СЕМ' ? 'sem' : 'lec']"
-            >{{pair.Lesson}}</v-list-tile-title>
+            <v-list-tile-sub-title>Выходной</v-list-tile-sub-title>
+            <v-list-tile-title>Занятий нет</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+      <v-list v-else two-line subheader>
+        <v-subheader>{{ days[lesson.Day - 1] }}</v-subheader>
+
+        <v-list-tile avatar v-for="(pair, i) in lesson.lessons" :key="i">
+          <v-list-tile-content>
+            <v-list-tile-sub-title>{{
+              lessons[pair.Lesson_ID - 1].name
+            }}</v-list-tile-sub-title>
+            <v-list-tile-content
+              v-bind:class="[
+                pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
+              ]"
+              >{{ pair.full_lesson }}</v-list-tile-content
+            >
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -26,12 +41,13 @@ export default {
   data() {
     return {
       days: [
-        { enName: 'Monday', ruName: 'Понедельник' },
-        { enName: 'Tuesday', ruName: 'Вторник' },
-        { enName: 'Wednesday', ruName: 'Среда' },
-        { enName: 'Thursday', ruName: 'Четверг' },
-        { enName: 'Friday', ruName: 'Пятница' },
-        { enName: 'Saturday', ruName: 'Суббота' },
+        'Понедельник',
+        'Вторник',
+        'Среда',
+        'Четверг',
+        'Пятница',
+        'Суббота',
+        'Воскресенье',
       ],
       lessons: [
         {

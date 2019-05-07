@@ -2,10 +2,15 @@
   <v-container fluid fill-height>
     <v-layout wrap justify-center>
       <v-flex v-if="loading" xs11 sm8 md5 offset-md1 justify-center>
-        <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
+        <v-progress-circular
+          :size="70"
+          :width="7"
+          color="purple"
+          indeterminate
+        ></v-progress-circular>
       </v-flex>
       <v-flex
-        v-if="groupSchedule[0] !== undefined && !loading"
+        v-if="mySchedule[0] !== undefined && !loading"
         xs11
         sm8
         md5
@@ -13,7 +18,7 @@
         justify-space-between
       >
         <!-- TODO: отображать дни, когда занятий нет -->
-        <schedule :groupSchedule="groupSchedule"></schedule>
+        <my-schedule :mySchedule="mySchedule" :role="user.role"></my-schedule>
       </v-flex>
     </v-layout>
   </v-container>
@@ -21,11 +26,11 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Schedule from '../components/Schedule';
+import MySchedule from '../components/MySchedule';
 
 export default {
   components: {
-    Schedule,
+    MySchedule,
   },
   data() {
     return {
@@ -35,19 +40,24 @@ export default {
   },
   mounted() {
     this.loading = true;
-    this.getGroupSchedule({ group: this.user.caf }).then(res => {
+    this.getMySchedule({
+      name: this.user.fio,
+      role: this.user.role,
+      group: this.user.caf,
+    }).then(res => {
+      console.log('res: ', res);
       this.loading = false;
     });
     // TODO - error
   },
   methods: {
     ...mapActions({
-      getGroupSchedule: 'schedule/getGroupSchedule',
+      getMySchedule: 'schedule/getMySchedule',
     }),
   },
   computed: {
     ...mapGetters({
-      groupSchedule: 'schedule/groupSchedule',
+      mySchedule: 'schedule/mySchedule',
       user: 'auth/currentUser',
     }),
   },

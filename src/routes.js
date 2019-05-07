@@ -7,6 +7,11 @@ import MySchedule from './views/MySchedule';
 
 export const routes = [
   {
+    path: '/index.html',
+    name: 'mobileHome',
+    component: Home,
+  },
+  {
     path: '/',
     name: 'home',
     component: Home,

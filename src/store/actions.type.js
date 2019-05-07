@@ -11,3 +11,4 @@ export const GET_USER = 'getUser';
 export const GET_GROUPS = 'getGroups';
 export const GET_GROUP_SCHEDULE = 'getGroupSchedule';
 export const GET_TEACHERS = 'getTeachers';
+export const GET_MY_SCHEDULE = 'getMySchedule';
