@@ -17,8 +17,11 @@
         offset-md1
         justify-space-between
       >
-        <!-- TODO: отображать дни, когда занятий нет -->
-        <my-schedule :mySchedule="mySchedule" :role="user.role"></my-schedule>
+        <teachers-schedule
+          v-if="user.role === 'Teachers'"
+          :schedule="mySchedule"
+        ></teachers-schedule>
+        <students-schedule v-else :schedule="mySchedule"></students-schedule>
       </v-flex>
     </v-layout>
   </v-container>
@@ -26,11 +29,13 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import MySchedule from '../components/MySchedule';
+import TeachersSchedule from '../components/TeachersSchedule';
+import StudentsSchedule from '../components/StudentsSchedule';
 
 export default {
   components: {
-    MySchedule,
+    TeachersSchedule,
+    StudentsSchedule,
   },
   data() {
     return {
@@ -45,7 +50,6 @@ export default {
       role: this.user.role,
       group: this.user.caf,
     }).then(res => {
-      console.log('res: ', res);
       this.loading = false;
     });
     // TODO - error

@@ -1,7 +1,8 @@
 <template>
   <v-container>
-    <v-card v-for="(lesson, i) in groupSchedule" :key="i">
-      <v-list v-if="lesson.Lesson_ID === null" two-line subheader>
+    <h1 class="text-xs-center">Ваше расписание преподавателя</h1>
+    <v-card v-for="(lesson, i) in schedule" :key="i">
+      <v-list v-if="lesson.Lesson === null" two-line subheader>
         <v-subheader>{{ days[lesson.Day - 1] }}</v-subheader>
 
         <v-list-tile avatar>
@@ -17,13 +18,13 @@
         <v-list-tile avatar v-for="(pair, i) in lesson.lessons" :key="i">
           <v-list-tile-content>
             <v-list-tile-sub-title>{{
-              lessons[pair.Lesson_ID - 1].name
+              lessons[pair.Lesson - 1].name
             }}</v-list-tile-sub-title>
             <v-list-tile-content
               v-bind:class="[
                 pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
               ]"
-              >{{ pair.full_lesson }}</v-list-tile-content
+              >{{ pair.Groups }}</v-list-tile-content
             >
           </v-list-tile-content>
         </v-list-tile>
@@ -34,9 +35,9 @@
 
 <script>
 export default {
-  name: 'Schedule',
+  name: 'TeachersSchedule',
   props: {
-    groupSchedule: {},
+    schedule: {},
   },
   data() {
     return {
@@ -76,14 +77,6 @@ export default {
         },
       ],
     };
-  },
-  methods: {
-    dayRu(day) {
-      let dayRu = this.days.filter(item => {
-        return item.enName === day;
-      });
-      return dayRu;
-    },
   },
 };
 </script>

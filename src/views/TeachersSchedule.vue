@@ -2,40 +2,26 @@
   <v-container fluid fill-height>
     <v-layout wrap justify-center>
       <v-flex xs11 sm8 md3 justify-center>
-        <v-select
-          v-if="groups !== null"
-          :items="groups"
-          v-model="checkedCaf"
-          label="Выберите факультет"
-          @change="checkedGroups()"
-          item-value="caf"
+        <v-autocomplete
+          v-model="checkedTeacher"
+          :loading="loadingCheck"
+          :items="availableTeachers"
+          :search-input.sync="search"
+          cache-items
+          class="mx-3"
+          flat
+          hide-no-data
+          hide-details
+          label="Выберите преподавателя"
+          solo-inverted
         >
           <template slot="selection" slot-scope="data">{{
-            data.item.caf
-          }}</template>
-          <template slot="item" slot-scope="data">{{ data.item.caf }}</template>
-        </v-select>
-        <v-select
-          :items="courses"
-          v-model="checkedCourse"
-          label="Выберите курс"
-          @change="checkedGroups()"
-        ></v-select>
-        <v-select
-          v-if="availableGroups !== null"
-          :items="availableGroups"
-          v-model="checkedGroup"
-          label="Выберите группу"
-          @change="showSchedule()"
-          item-value="group"
-        >
-          <template slot="selection" slot-scope="data">{{
-            data.item.group
+            data.item.Lecturer
           }}</template>
           <template slot="item" slot-scope="data">{{
-            data.item.group
+            data.item.Lecturer
           }}</template>
-        </v-select>
+        </v-autocomplete>
       </v-flex>
       <v-flex v-if="loading" xs11 sm8 md5 offset-md1 justify-center>
         <v-progress-circular
@@ -70,33 +56,30 @@ export default {
   },
   data() {
     return {
-      // groups
-      checkedCaf: '',
-      courses: [1, 2, 3, 4, 5, 6],
-      checkedCourse: null,
-      availableGroups: null,
-      checkedGroup: 1011,
+      loadingCheck: false,
+      search: null,
+      availableTeachers: [],
+      checkedTeacher: '',
       // groupSchedule
       loading: false,
     };
   },
   mounted() {
-    this.getGroups().then(res => {});
+    this.getTeachers().then(res => {
+      this.availableTeachers = res;
+    });
     // TODO - error
+  },
+  watch: {
+    search(val) {
+      val && val !== this.checkedTeacher && this.querySelections(val);
+    },
   },
   methods: {
     ...mapActions({
-      getGroups: 'schedule/getGroups',
+      getTeachers: 'schedule/getTeachers',
       getGroupSchedule: 'schedule/getGroupSchedule',
     }),
-    checkedGroups() {
-      this.checkedGroup = null;
-      let checkedCaf = this.groups.filter((item, i) => {
-        return item.caf == this.checkedCaf;
-      });
-      this.availableGroups =
-        checkedCaf[0].courses[this.checkedCourse - 1].groups;
-    },
     showSchedule() {
       this.loading = true;
       if (this.checkedGroup !== null)
@@ -104,10 +87,28 @@ export default {
           this.loading = false;
         });
     },
+    querySelections(v) {
+      this.loadingCheck = true;
+      // Simulated ajax query
+      setTimeout(() => {
+        this.availableTeachers = this.teachers.filter(e => {
+          console.log(
+            '(e.Lecturer || ).toLowerCase(): ',
+            (e.Lecturer || '').toLowerCase().indexOf((v || '').toLowerCase()),
+          );
+          return (
+            (e.Lecturer || '').toLowerCase().indexOf((v || '').toLowerCase()) >
+            -1
+          );
+        });
+        this.loadingCheck = false;
+        console.log(this.availableTeachers);
+      }, 50);
+    },
   },
   computed: {
     ...mapGetters({
-      groups: 'schedule/groups',
+      teachers: 'schedule/teachers',
       groupSchedule: 'schedule/groupSchedule',
     }),
   },
