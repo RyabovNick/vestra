@@ -62,6 +62,8 @@ const actions = {
       axios
         .get(url)
         .then(({ data }) => {
+          console.log('url: ', url);
+          console.log('data: ', data);
           context.commit(SET_MY_SCHEDULE, data);
           return resolve(data);
         })

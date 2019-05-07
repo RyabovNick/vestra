@@ -10,11 +10,15 @@
           cache-items
           class="mx-3"
           flat
-          hide-no-data
           hide-details
+          item-value="Lecturer"
           label="Выберите преподавателя"
           solo-inverted
+          @change="change()"
         >
+          <template slot="no-data"
+            >Такого преподавателя нет :(
+          </template>
           <template slot="selection" slot-scope="data">{{
             data.item.Lecturer
           }}</template>
@@ -32,7 +36,7 @@
         ></v-progress-circular>
       </v-flex>
       <v-flex
-        v-if="groupSchedule[0] !== undefined && !loading && checkedGroup"
+        v-if="mySchedule[0] !== undefined && !loading && checkedTeacher"
         xs11
         sm8
         md5
@@ -40,7 +44,7 @@
         justify-space-between
       >
         <!-- TODO: отображать дни, когда занятий нет -->
-        <schedule :schedule="groupSchedule"></schedule>
+        <schedule :schedule="mySchedule"></schedule>
       </v-flex>
     </v-layout>
   </v-container>
@@ -48,7 +52,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Schedule from '../components/StudentsSchedule';
+import Schedule from '../components/TeachersSchedule';
 
 export default {
   components: {
@@ -72,30 +76,26 @@ export default {
   },
   watch: {
     search(val) {
-      val && val !== this.checkedTeacher && this.querySelections(val);
+      console.log('val: ', val);
+      console.log(
+        'val !== this.checkedTeacher.Lecturer: ',
+        val !== this.checkedTeacher.Lecturer,
+      );
+      console.log('this.querySelections(val): ', this.querySelections(val));
+      val && val !== this.checkedTeacher.Lecturer;
+      this.querySelections(val);
     },
   },
   methods: {
     ...mapActions({
       getTeachers: 'schedule/getTeachers',
-      getGroupSchedule: 'schedule/getGroupSchedule',
+      getMySchedule: 'schedule/getMySchedule',
     }),
-    showSchedule() {
-      this.loading = true;
-      if (this.checkedGroup !== null)
-        this.getGroupSchedule({ group: this.checkedGroup }).then(res => {
-          this.loading = false;
-        });
-    },
     querySelections(v) {
       this.loadingCheck = true;
       // Simulated ajax query
       setTimeout(() => {
         this.availableTeachers = this.teachers.filter(e => {
-          console.log(
-            '(e.Lecturer || ).toLowerCase(): ',
-            (e.Lecturer || '').toLowerCase().indexOf((v || '').toLowerCase()),
-          );
           return (
             (e.Lecturer || '').toLowerCase().indexOf((v || '').toLowerCase()) >
             -1
@@ -103,13 +103,24 @@ export default {
         });
         this.loadingCheck = false;
         console.log(this.availableTeachers);
-      }, 50);
+      }, 500);
+    },
+    change() {
+      this.loading = true;
+      // лениво делать отдельный actions
+      this.getMySchedule({
+        name: this.checkedTeacher.Lecturer,
+        role: 'Teachers',
+        group: null,
+      }).then(res => {
+        this.loading = false;
+      });
     },
   },
   computed: {
     ...mapGetters({
       teachers: 'schedule/teachers',
-      groupSchedule: 'schedule/groupSchedule',
+      mySchedule: 'schedule/mySchedule',
     }),
   },
 };

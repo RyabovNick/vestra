@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <h1 class="text-xs-center">Ваше расписание преподавателя</h1>
     <v-card v-for="(lesson, i) in schedule" :key="i">
       <v-list v-if="lesson.Lesson === null" two-line subheader>
         <v-subheader>{{ days[lesson.Day - 1] }}</v-subheader>
