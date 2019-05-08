@@ -72,7 +72,7 @@ const actions = {
             // отправить токен на сервер
             // и группу, чтобы подписать на данный топик
             axios
-              .post('https://unidb.ru:8460/api/subscribe', {
+              .post('https://college.uni-dubna.ru:8451/api/subscribe', {
                 token,
                 common: true,
               })

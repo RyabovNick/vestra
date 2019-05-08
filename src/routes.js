@@ -9,8 +9,8 @@ import TeachersSchedule from './views/TeachersSchedule.vue';
 export const routes = [
   {
     path: '/index.html',
-    name: 'mobileHome',
     component: Home,
+    alias: '/',
   },
   {
     path: '/',

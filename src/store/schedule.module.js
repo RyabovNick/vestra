@@ -54,6 +54,7 @@ const actions = {
     });
   },
   [GET_MY_SCHEDULE](context, { name, role, group }) {
+    console.log(name, role, group);
     let url =
       role === 'Teachers'
         ? `${scheduleService}teachers/${name}`

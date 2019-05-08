@@ -107,8 +107,8 @@ export default {
     drawer: null,
     items: [
       { icon: 'home', text: 'Главная', link: '/' },
-      { icon: 'account_balance', text: 'Личный кабинет', link: '/personal' },
-      { icon: 'account_balance', text: 'Отправить сообщение', link: '/push' },
+      { icon: 'perm_identity', text: 'Личный кабинет', link: '/personal' },
+      { icon: 'message', text: 'Отправить сообщение', link: '/push' },
       {
         icon: 'keyboard_arrow_up',
         'icon-alt': 'keyboard_arrow_down',
@@ -122,9 +122,9 @@ export default {
           },
         ],
       },
-      { icon: 'accessible', text: 'Расписание', link: '/schedule' },
-      { icon: 'accessible', text: 'Моё расписание', link: '/myschedule' },
-      { icon: 'accessible', text: 'Преподаватели', link: '/teachersschedule' },
+      { icon: 'schedule', text: 'Моё расписание', link: '/myschedule' },
+      { icon: 'schedule', text: 'Расписание групп', link: '/schedule' },
+      { icon: 'schedule', text: 'Преподаватели', link: '/teachersschedule' },
     ],
     toolbar: [{ icon: 'home', text: 'Главная', link: '/test' }],
   }),

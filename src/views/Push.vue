@@ -19,7 +19,9 @@
             <v-text-field v-model="topic" label="Топик"></v-text-field>
           </v-flex>
           <v-flex xs12 sm12>
-            <v-btn color="primary" dark class="mb-2" @click="sendPush()">Добавить</v-btn>
+            <v-btn color="primary" dark class="mb-2" @click="sendPush()"
+              >Добавить</v-btn
+            >
           </v-flex>
         </v-layout>
       </v-container>
@@ -44,7 +46,7 @@ export default {
     // тут ещё добавить от кого сообщение
     sendPush() {
       axios
-        .post('https://unidb.ru:8460/api/push', {
+        .post('https://college.uni-dubna.ru:8451/api/push', {
           title: this.title,
           content: this.content,
           logo: this.logo,

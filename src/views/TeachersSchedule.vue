@@ -77,12 +77,9 @@ export default {
   watch: {
     search(val) {
       console.log('val: ', val);
-      console.log(
-        'val !== this.checkedTeacher.Lecturer: ',
-        val !== this.checkedTeacher.Lecturer,
-      );
+      console.log('val !== this.checkedTeacher: ', val !== this.checkedTeacher);
       console.log('this.querySelections(val): ', this.querySelections(val));
-      val && val !== this.checkedTeacher.Lecturer;
+      val && val !== this.checkedTeacher;
       this.querySelections(val);
     },
   },
@@ -109,7 +106,7 @@ export default {
       this.loading = true;
       // лениво делать отдельный actions
       this.getMySchedule({
-        name: this.checkedTeacher.Lecturer,
+        name: this.checkedTeacher,
         role: 'Teachers',
         group: null,
       }).then(res => {
