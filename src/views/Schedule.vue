@@ -3,11 +3,18 @@
     <v-layout wrap justify-center>
       <v-flex xs11 sm8 md3 justify-center>
         <v-select
-          :items="cafs"
+          v-if="groups !== null"
+          :items="groups"
           v-model="checkedCaf"
           label="Выберите факультет"
           @change="checkedGroups()"
-        ></v-select>
+          item-value="caf"
+        >
+          <template slot="selection" slot-scope="data">{{
+            data.item.caf
+          }}</template>
+          <template slot="item" slot-scope="data">{{ data.item.caf }}</template>
+        </v-select>
         <v-select
           :items="courses"
           v-model="checkedCourse"
@@ -15,14 +22,28 @@
           @change="checkedGroups()"
         ></v-select>
         <v-select
+          v-if="availableGroups !== null"
           :items="availableGroups"
           v-model="checkedGroup"
           label="Выберите группу"
           @change="showSchedule()"
-        ></v-select>
+          item-value="group"
+        >
+          <template slot="selection" slot-scope="data">{{
+            data.item.group
+          }}</template>
+          <template slot="item" slot-scope="data">{{
+            data.item.group
+          }}</template>
+        </v-select>
       </v-flex>
       <v-flex v-if="loading" xs11 sm8 md5 offset-md1 justify-center>
-        <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
+        <v-progress-circular
+          :size="70"
+          :width="7"
+          color="purple"
+          indeterminate
+        ></v-progress-circular>
       </v-flex>
       <v-flex
         v-if="groupSchedule[0] !== undefined && !loading && checkedGroup"
@@ -33,7 +54,7 @@
         justify-space-between
       >
         <!-- TODO: отображать дни, когда занятий нет -->
-        <schedule :groupSchedule="groupSchedule"></schedule>
+        <schedule :schedule="groupSchedule"></schedule>
       </v-flex>
     </v-layout>
   </v-container>
@@ -41,7 +62,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Schedule from '../components/Schedule';
+import Schedule from '../components/StudentsSchedule';
 
 export default {
   components: {
@@ -50,10 +71,9 @@ export default {
   data() {
     return {
       // groups
-      cafs: ['', 'ИСАУ', 'ФЕИН', 'ФСГН', 'ФЭУ'],
-      checkedCaf: 'ИСАУ',
+      checkedCaf: '',
       courses: [1, 2, 3, 4, 5, 6],
-      checkedCourse: 1,
+      checkedCourse: null,
       availableGroups: null,
       checkedGroup: 1011,
       // groupSchedule
@@ -61,9 +81,7 @@ export default {
     };
   },
   mounted() {
-    this.getGroups().then(res => {
-      this.checkedGroups();
-    });
+    this.getGroups().then(res => {});
     // TODO - error
   },
   methods: {
@@ -73,9 +91,11 @@ export default {
     }),
     checkedGroups() {
       this.checkedGroup = null;
-      this.availableGroups = this.groups[this.checkedCaf].filter((item, i) => {
-        return item.slice(0, 1) == this.checkedCourse;
+      let checkedCaf = this.groups.filter((item, i) => {
+        return item.caf == this.checkedCaf;
       });
+      this.availableGroups =
+        checkedCaf[0].courses[this.checkedCourse - 1].groups;
     },
     showSchedule() {
       this.loading = true;

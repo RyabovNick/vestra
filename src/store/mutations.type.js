@@ -6,3 +6,4 @@ export const SET_AUTH = 'setUser';
 export const SET_GROUPS = 'setGroups';
 export const SET_GROUP_SCHEDULE = 'setGroupSchedule';
 export const SET_TEACHERS = 'setTeachers';
+export const SET_MY_SCHEDULE = 'setMySchedule';

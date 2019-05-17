@@ -4,8 +4,14 @@ import Personal from './views/Personal';
 import Push from './views/Push';
 import Schedule from './views/Schedule';
 import MySchedule from './views/MySchedule';
+import TeachersSchedule from './views/TeachersSchedule.vue';
 
 export const routes = [
+  {
+    path: '/index.html',
+    component: Home,
+    alias: '/',
+  },
   {
     path: '/',
     name: 'home',
@@ -44,6 +50,11 @@ export const routes = [
     path: '/myschedule',
     name: 'myschedule',
     component: MySchedule,
+  },
+  {
+    path: '/teachersschedule',
+    name: 'teachersschedule',
+    component: TeachersSchedule,
   },
 ];
 

@@ -72,7 +72,9 @@
       fixed
     >
       <v-toolbar-title class="ml-0 pl-3">
-        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <v-toolbar-side-icon
+          @click.stop="drawer = !drawer"
+        ></v-toolbar-side-icon>
         <span class="hidden-sm-and-down test">Vestra</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -80,10 +82,9 @@
         <router-link class="btn btn--flat btn--router" :to="item.link">
           <div class="btn__content">
             <span class="hidden-sm-and-down">{{ item.text }}</span>
-            <i
-              aria-hidden="true"
-              class="icon icon--right material-icons"
-            >{{ item.icon }}</i>
+            <i aria-hidden="true" class="icon icon--right material-icons">{{
+              item.icon
+            }}</i>
           </div>
         </router-link>
       </div>
@@ -106,8 +107,8 @@ export default {
     drawer: null,
     items: [
       { icon: 'home', text: 'Главная', link: '/' },
-      { icon: 'account_balance', text: 'Личный кабинет', link: '/personal' },
-      { icon: 'account_balance', text: 'Отправить сообщение', link: '/push' },
+      { icon: 'perm_identity', text: 'Личный кабинет', link: '/personal' },
+      { icon: 'message', text: 'Отправить сообщение', link: '/push' },
       {
         icon: 'keyboard_arrow_up',
         'icon-alt': 'keyboard_arrow_down',
@@ -121,8 +122,9 @@ export default {
           },
         ],
       },
-      { icon: 'accessible', text: 'Расписание', link: '/schedule' },
-      { icon: 'accessible', text: 'Моё расписание', link: '/myschedule' },
+      { icon: 'schedule', text: 'Моё расписание', link: '/myschedule' },
+      { icon: 'schedule', text: 'Расписание групп', link: '/schedule' },
+      { icon: 'schedule', text: 'Преподаватели', link: '/teachersschedule' },
     ],
     toolbar: [{ icon: 'home', text: 'Главная', link: '/test' }],
   }),
