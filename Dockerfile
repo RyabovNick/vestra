@@ -4,6 +4,8 @@ ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 ENV PATH=$PATH:/home/node/.npm-global/bin
 
 # RUN mkdir -p /home/node/vestra && chown -R node:node /home/node/vestra
+RUN mkdir -p /home/node/vestra/dist
+RUN mkdir -p /usr/share/nginx/html
 
 WORKDIR /home/node/vestra
 
@@ -11,10 +13,9 @@ WORKDIR /home/node/vestra
 
 ADD . /home/node/vestra
 
-RUN mkdir /home/node/vestra/logs
-RUN chmod 755 /home/node/vestra/logs
+RUN ls
 
-COPY /home/node/vestra/dist /usr/share/nginx/html
+RUN cp -r /home/node/vestra/dist/* /usr/share/nginx/html
 
 EXPOSE 3000
 
