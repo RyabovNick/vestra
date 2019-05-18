@@ -14,6 +14,8 @@ ADD . /home/node/vestra
 RUN mkdir /home/node/vestra/logs
 RUN chmod 755 /home/node/vestra/logs
 
+COPY /home/node/vestra/dist /usr/share/nginx/html
+
 EXPOSE 3000
 
 # CMD [ "pm2-runtime", "index.js" ]
