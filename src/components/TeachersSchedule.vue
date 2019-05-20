@@ -16,15 +16,18 @@
 
         <v-list-tile avatar v-for="(pair, i) in lesson.lessons" :key="i">
           <v-list-tile-content>
-            <v-list-tile-sub-title>{{
+            <v-list-tile-sub-title>
+              {{
               lessons[pair.Lesson - 1].name
-            }}</v-list-tile-sub-title>
+              }}
+            </v-list-tile-sub-title>
             <v-list-tile-content
               v-bind:class="[
                 pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
               ]"
-              >{{ pair.Groups }}</v-list-tile-content
             >
+              <router-link :to="{ name: 'group', params: {group: pair.Groups} }">{{ pair.Groups }}</router-link>
+            </v-list-tile-content>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>

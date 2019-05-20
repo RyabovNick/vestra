@@ -5,6 +5,8 @@ import Push from './views/Push';
 import Schedule from './views/Schedule';
 import MySchedule from './views/MySchedule';
 import TeachersSchedule from './views/TeachersSchedule.vue';
+import Group from './views/Group.vue';
+import Teacher from './views/Teacher.vue';
 
 export const routes = [
   {
@@ -55,6 +57,16 @@ export const routes = [
     path: '/teachersschedule',
     name: 'teachersschedule',
     component: TeachersSchedule,
+  },
+  {
+    path: '/group/:group',
+    name: 'group',
+    component: Group,
+  },
+  {
+    path: '/teacher/:fio',
+    name: 'teacher',
+    component: Teacher,
   },
 ];
 
