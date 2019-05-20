@@ -19,7 +19,7 @@ RUN ls ./dist
 
 RUN ls /usr/share/nginx/html
 
-RUN cp -r /home/node/vestra/dist/* /usr/share/nginx/html
+RUN cp -r /home/node/vestra/* /usr/share/nginx/html
 
 RUN ls /usr/share/nginx/html
 
