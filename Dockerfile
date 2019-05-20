@@ -10,20 +10,7 @@ RUN mkdir -p /usr/share/nginx/html
 WORKDIR /home/node/vestra
 
 # USER node
-
 ADD ./dist/ /home/node/vestra
-
-RUN ls
-
-RUN ls ./dist
-
-RUN ls /usr/share/nginx/html
-
-RUN cp -r /home/node/vestra/* /usr/share/nginx/html
-
-RUN ls /usr/share/nginx/html
-
 EXPOSE 3000
 
 CMD cp -r /home/node/vestra/* /usr/share/nginx/html
-# CMD [ "pm2-runtime", "index.js" ]

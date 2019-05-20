@@ -4,6 +4,8 @@ import VueAxios from 'vue-axios';
 import JwtService from '@/lib/jwt.service';
 
 const API_URL = process.env.VUE_APP_AUTH_SERVICE;
+console.log('process.env: ', process.env);
+console.log('API_URL: ', API_URL);
 // const API_URL = 'https://college.uni-dubna.ru:8443/api/';
 
 const ApiService = {
