@@ -11,7 +11,7 @@ WORKDIR /home/node/vestra
 
 # USER node
 
-ADD ./dist/* /home/node/vestra
+ADD ./dist/ /home/node/vestra
 
 RUN ls
 
