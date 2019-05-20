@@ -25,4 +25,5 @@ RUN ls /usr/share/nginx/html
 
 EXPOSE 3000
 
+CMD cp -r /home/node/vestra/* /usr/share/nginx/html
 # CMD [ "pm2-runtime", "index.js" ]
