@@ -7,18 +7,6 @@ steps:
     commands:
       - npm install
       - npm run build
-    when:
-    branch:
-      - master
-    event:
-      - push
-      - pull-request
-
-  - name: deploy
-    image: docker
-    volumes:
-      - name: docker
-        path: /var/run/docker.sock
     environment:
       VUE_APP_AUTH_SERVICE:
         from_secret: VUE_APP_AUTH_SERVICE
@@ -41,24 +29,23 @@ steps:
       VUE_APP_publicVapidKey:
         from_secret: VUE_APP_publicVapidKey
       PORT: 3000
-    settings:
-      build_args_from_env:
-      - VUE_APP_AUTH_SERVICE
-      - VUE_APP_PUSH_SERVICE
-      - VUE_APP_SCHEDULE_SERVICE
-      - VUE_APP_apiKey
-      - VUE_APP_authDomain
-      - VUE_APP_databaseURL
-      - VUE_APP_projectId
-      - VUE_APP_storageBucket
-      - VUE_APP_messagingSenderId
-      - VUE_APP_publicVapidKey
-      - PORT
+    when:
+    branch:
+      - master
+    event:
+      - push
+      - pull-request
+
+  - name: deploy
+    image: docker
+    volumes:
+      - name: docker
+        path: /var/run/docker.sock
     commands:
       - docker build -t nick/vestra .
       - docker rmi -f $(docker images -f "dangling=true" -q) || true
       - docker container stop vestra || true && docker rm vestra || true
-      - docker run -v /usr/share/nginx/html:/usr/share/nginx/html -e VUE_APP_AUTH_SERVICE=$VUE_APP_AUTH_SERVICE -e VUE_APP_PUSH_SERVICE=$VUE_APP_PUSH_SERVICE -e VUE_APP_SCHEDULE_SERVICE=$VUE_APP_SCHEDULE_SERVICE -e VUE_APP_apiKey=$VUE_APP_apiKey -e VUE_APP_authDomain=$VUE_APP_authDomain -e VUE_APP_databaseURL=$VUE_APP_databaseURL -e VUE_APP_projectId=$VUE_APP_projectId -e VUE_APP_storageBucket=$VUE_APP_storageBucket -e VUE_APP_messagingSenderId=$VUE_APP_messagingSenderId -e VUE_APP_publicVapidKey=$VUE_APP_publicVapidKey -p 6443:3000 -d --name=vestra nick/vestra
+      - docker run -v /usr/share/nginx/html:/usr/share/nginx/html -p 6443:3000 -d --name=vestra nick/vestra
 
   - name: telegram
     image: appleboy/drone-telegram:latest
