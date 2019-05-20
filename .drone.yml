@@ -57,7 +57,7 @@ steps:
     commands:
       - docker container stop vestra || true && docker rm vestra || true
       - docker build -t nick/vestra .
-      - docker run -v /usr/share/nginx/html:/usr/share/nginx/html -e VUE_APP_AUTH_SERVICE=$VUE_APP_AUTH_SERVICE -e VUE_APP_PUSH_SERVICE=$VUE_APP_PUSH_SERVICE -e VUE_APP_SCHEDULE_SERVICE=$VUE_APP_SCHEDULE_SERVICE -e VUE_APP_apiKey=$VUE_APP_apiKey -e VUE_APP_authDomain=$VUE_APP_authDomain -e VUE_APP_databaseURL=$VUE_APP_databaseURL -e VUE_APP_projectId=$VUE_APP_projectId -e VUE_APP_storageBucket=$VUE_APP_storageBucket -e VUE_APP_messagingSenderId=$VUE_APP_messagingSenderId -e VUE_APP_publicVapidKey=$VUE_APP_publicVapidKey -p 6443:3000 -d --name=vestra nick/vestra
+      - docker run --volumes-from /usr/share/nginx/html -e VUE_APP_AUTH_SERVICE=$VUE_APP_AUTH_SERVICE -e VUE_APP_PUSH_SERVICE=$VUE_APP_PUSH_SERVICE -e VUE_APP_SCHEDULE_SERVICE=$VUE_APP_SCHEDULE_SERVICE -e VUE_APP_apiKey=$VUE_APP_apiKey -e VUE_APP_authDomain=$VUE_APP_authDomain -e VUE_APP_databaseURL=$VUE_APP_databaseURL -e VUE_APP_projectId=$VUE_APP_projectId -e VUE_APP_storageBucket=$VUE_APP_storageBucket -e VUE_APP_messagingSenderId=$VUE_APP_messagingSenderId -e VUE_APP_publicVapidKey=$VUE_APP_publicVapidKey -p 6443:3000 -d --name=vestra nick/vestra
 
   - name: telegram
     image: appleboy/drone-telegram:latest
