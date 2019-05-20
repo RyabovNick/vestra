@@ -15,7 +15,13 @@ ADD . /home/node/vestra
 
 RUN ls
 
+RUN ls ./dist
+
+RUN ls /usr/share/nginx/html
+
 RUN cp -r /home/node/vestra/dist/* /usr/share/nginx/html
+
+RUN ls /usr/share/nginx/html
 
 EXPOSE 3000
 
