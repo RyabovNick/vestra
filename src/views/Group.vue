@@ -15,6 +15,7 @@
           <v-card-text>Группа: {{ groupInfo[0].group }}</v-card-text>
           <v-card-text>Уровень подготовки: {{ groupInfo[0].level }}</v-card-text>
         </v-card>
+        <schedule class="schedule" :schedule="groupSchedule"></schedule>
         <v-card class="elevation-12">
           <v-toolbar dark color="primary">
             <v-toolbar-title>Список группы</v-toolbar-title>
@@ -28,8 +29,12 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import Schedule from '../components/StudentsSchedule';
 
 export default {
+  components: {
+    Schedule,
+  },
   data() {
     return {
       loading: true,
@@ -37,24 +42,35 @@ export default {
   },
   mounted() {
     // TODO - error
+    console.log('this.$route.params.group: ', this.$route.params.group);
     this.getGroupInfo({ group: this.$route.params.group })
       .then(res => {
+        console.log('res: ', res);
         this.loading = false;
       })
       .catch(err => {});
+    this.getGroupSchedule({ group: this.$route.params.group }).then(res => {
+      this.loading = false;
+    });
   },
   methods: {
     ...mapActions({
       getGroupInfo: 'schedule/getGroupInfo',
+      getGroupSchedule: 'schedule/getGroupSchedule',
     }),
   },
   computed: {
     ...mapGetters({
       groupInfo: 'schedule/groupInfo',
+      groupSchedule: 'schedule/groupSchedule',
     }),
   },
 };
 </script>
 
-<style>
+<style scoped>
+.schedule {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
 </style>

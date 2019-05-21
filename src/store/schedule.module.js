@@ -110,6 +110,7 @@ const actions = {
       axios
         .get(`${scheduleService}info/groups/${group}`)
         .then(({ data }) => {
+          console.log('data: ', data);
           context.commit(SET_GROUP_INFO, data);
           return resolve(data);
         })

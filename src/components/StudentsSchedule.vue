@@ -35,7 +35,7 @@
                 pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
               ]"
                 :to="{ name: 'teacher', params: {fio: pair.lecturer_fw} }"
-              >{{ pair.lecturer_fw }}</router-link>
+              >{{ fioChanger(pair.lecturer_fw) }}</router-link>
               &nbsp;/&nbsp;
               {{ pair.cab_sw }} {{ pair.subject_sw }}
               <router-link
@@ -44,7 +44,7 @@
                 pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
               ]"
                 :to="{ name: 'teacher', params: {fio: pair.lecturer_sw} }"
-              >{{ pair.lecturer_sw }}</router-link>
+              >{{ fioChanger(pair.lecturer_sw) }}</router-link>
             </v-list-tile-content>
             <v-list-tile-content v-else>
               <router-link
@@ -54,7 +54,21 @@
                 pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
               ]"
                 :to="{ name: 'teacher', params: {fio: pair.lecturer_sw} }"
-              >{{ pair.full_lesson }}</router-link>
+              >
+                /&nbsp;{{ pair.cab_sw }}&nbsp;
+                {{ pair.subject_sw}}&nbsp;{{ fioChanger(pair.lecturer_sw) }}
+              </router-link>
+              <router-link
+                class="teacher-link"
+                v-else-if="pair.lecturer_sw == null"
+                v-bind:class="[
+                pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
+              ]"
+                :to="{ name: 'teacher', params: {fio: pair.lecturer_fw} }"
+              >
+                {{ pair.cab_fw }}&nbsp;{{ pair.subject_fw}}
+                {{ fioChanger(pair.lecturer_fw) }}&nbsp;/
+              </router-link>
               <router-link
                 class="teacher-link"
                 v-else
@@ -62,9 +76,8 @@
                 pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
               ]"
                 :to="{ name: 'teacher', params: {fio: pair.lecturer_fw} }"
-              >{{ pair.full_lesson }}</router-link>
+              >{{ pair.cab_fw }}&nbsp;{{ pair.subject_fw}}&nbsp;{{ fioChanger(pair.lecturer_fw) }}</router-link>
             </v-list-tile-content>
-            <!--  -->
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -116,6 +129,29 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    /**
+     * Преобразует Петрова Ирина Федоровна
+     * В Петрова И. Ф.
+     */
+    fioChanger(fio) {
+      if (fio === 'Преподаватель университета') return '';
+      // для преподов а-ля Буланов С.В.
+      try {
+        fio = fio.replace('.', ' ');
+
+        const surnameRegExp = new RegExp('[а-яА-Я]+', 'g');
+        const ioRegExp = new RegExp(' ([А-Я])', 'g');
+
+        const surname = surnameRegExp.exec(fio);
+        const io = fio.match(ioRegExp);
+        const newFio = `${surname}${io[0]}.${io[1]}.`;
+        return newFio;
+      } catch (err) {
+        return fio;
+      }
+    },
   },
 };
 </script>

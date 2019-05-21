@@ -6,7 +6,7 @@
       fixed
       disable-resize-watcher
       app
-      width="355"
+      width="240"
     >
       <v-list dense>
         <template v-for="item in items">
@@ -64,27 +64,24 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar
-      :clipped-left="$vuetify.breakpoint.lgAndUp"
-      color="primary"
-      dark
-      app
-      fixed
-    >
+    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="primary" dark app fixed>
       <v-toolbar-title class="ml-0 pl-3">
-        <v-toolbar-side-icon
-          @click.stop="drawer = !drawer"
-        ></v-toolbar-side-icon>
+        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span class="hidden-sm-and-down test">Vestra</span>
       </v-toolbar-title>
+      <v-btn icon large @click="$router.go(-1)">
+        <v-icon title="Версия для слабовидящих">arrow_back</v-icon>
+      </v-btn>
       <v-spacer></v-spacer>
       <div v-for="(item, index) in toolbar" :key="index" class="toolbar__items">
         <router-link class="btn btn--flat btn--router" :to="item.link">
           <div class="btn__content">
             <span class="hidden-sm-and-down">{{ item.text }}</span>
-            <i aria-hidden="true" class="icon icon--right material-icons">{{
+            <i aria-hidden="true" class="icon icon--right material-icons">
+              {{
               item.icon
-            }}</i>
+              }}
+            </i>
           </div>
         </router-link>
       </div>
@@ -112,19 +109,20 @@ export default {
       {
         icon: 'keyboard_arrow_up',
         'icon-alt': 'keyboard_arrow_down',
-        text: 'Вложенное меню',
+        text: 'Расписание',
         model: false,
         children: [
-          { text: '1', link: '/' },
+          { text: 'Моё расписание', link: '/myschedule' },
           {
-            text: '2',
-            link: '/',
+            text: 'Расписание групп',
+            link: '/schedule',
+          },
+          {
+            text: 'Преподаватели',
+            link: '/teachersschedule',
           },
         ],
       },
-      { icon: 'schedule', text: 'Моё расписание', link: '/myschedule' },
-      { icon: 'schedule', text: 'Расписание групп', link: '/schedule' },
-      { icon: 'schedule', text: 'Преподаватели', link: '/teachersschedule' },
     ],
     toolbar: [{ icon: 'home', text: 'Главная', link: '/test' }],
   }),
