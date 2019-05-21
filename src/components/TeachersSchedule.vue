@@ -21,12 +21,113 @@
               lessons[pair.Lesson - 1].name
               }}
             </v-list-tile-sub-title>
+            <!-- занятия на каждой неделе -->
             <v-list-tile-content
+              v-if="pair.dif_weeks == 0"
               v-bind:class="[
                 pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
               ]"
             >
-              <router-link :to="{ name: 'group', params: {group: pair.Groups} }">{{ pair.Groups }}</router-link>
+              {{ pair.Cab_fw }} {{ pair.Subject_fw }} -
+              <router-link
+                class="group-link"
+                v-for="(group, i) in pair.Groups_short_fw.replace(' ', '').split(', ')"
+                :key="i"
+                v-bind:class="[
+                pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
+              ]"
+                :to="{ name: 'group', params: {group: group} }"
+              >
+                <span
+                  v-if="i === pair.Groups_short_fw.replace(' ', '').split(', ').length - 1"
+                >{{ group }}</span>
+                <span v-else>{{ group }},&nbsp;</span>
+              </router-link>
+            </v-list-tile-content>
+            <!-- занятия через неделю, нет на нечётной -->
+            <v-list-tile-content
+              v-if="pair.dif_weeks == 1 && pair.Subject_fw == null"
+              v-bind:class="[
+                pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
+              ]"
+            >
+              / {{ pair.Cab_sw }} {{ pair.Subject_sw }} -
+              <router-link
+                class="group-link"
+                v-for="(group, i) in pair.Groups_short_sw.replace(' ', '').split(', ')"
+                :key="i"
+                v-bind:class="[
+                pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
+              ]"
+                :to="{ name: 'group', params: {group: group} }"
+              >
+                <span
+                  v-if="i === pair.Groups_short_sw.replace(' ', '').split(', ').length - 1"
+                >{{ group }}</span>
+                <span v-else>{{ group }},&nbsp;</span>
+              </router-link>
+            </v-list-tile-content>
+            <!-- Занятия через неделю, нет на чётной -->
+            <v-list-tile-content
+              v-if="pair.dif_weeks == 1 && pair.Subject_sw == null"
+              v-bind:class="[
+                pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
+              ]"
+            >
+              {{ pair.Cab_fw }} {{ pair.Subject_fw }} -
+              <router-link
+                class="group-link"
+                v-for="(group, i) in pair.Groups_short_fw.replace(' ', '').split(', ')"
+                :key="i"
+                v-bind:class="[
+                pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
+              ]"
+                :to="{ name: 'group', params: {group: group} }"
+              >
+                <span
+                  v-if="i === pair.Groups_short_fw.replace(' ', '').split(', ').length - 1"
+                >{{ group }}</span>
+                <span v-else>{{ group }},&nbsp;</span>
+              </router-link>&nbsp;/
+            </v-list-tile-content>
+            <!-- Разные занятия на каждой неделе -->
+            <v-list-tile-content
+              v-if="pair.dif_weeks == 1 && pair.Subject_sw != null && pair.Subject_fw != null"
+              v-bind:class="[
+                pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
+              ]"
+            >
+              {{ pair.Cab_fw }} {{ pair.Subject_fw }} -
+              <router-link
+                class="group-link"
+                v-for="(group, i) in pair.Groups_short_fw.replace(' ', '').split(', ')"
+                :key="i"
+                v-bind:class="[
+                pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
+              ]"
+                :to="{ name: 'group', params: {group: group} }"
+              >
+                <span
+                  v-if="i === pair.Groups_short_fw.replace(' ', '').split(', ').length - 1"
+                >{{ group }}</span>
+                <span v-else>{{ group }},&nbsp;</span>
+              </router-link>
+              &nbsp;/&nbsp;
+              {{ pair.Cab_sw }} {{ pair.Subject_sw }} -
+              <router-link
+                class="group-link"
+                v-for="(group, i) in pair.Groups_short_sw.replace(' ', '').split(', ')"
+                :key="i"
+                v-bind:class="[
+                pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
+              ]"
+                :to="{ name: 'group', params: {group: group} }"
+              >
+                <span
+                  v-if="i === pair.Groups_short_sw.replace(' ', '').split(', ').length - 1"
+                >{{ group }}</span>
+                <span v-else>{{ group }},&nbsp;</span>
+              </router-link>
             </v-list-tile-content>
           </v-list-tile-content>
         </v-list-tile>
@@ -106,5 +207,13 @@ export default {
     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
   text-decoration: none;
   margin-bottom: 5px;
+}
+
+.group-link {
+  display: contents;
+}
+
+.group-link span {
+  display: contents;
 }
 </style>

@@ -16,15 +16,55 @@
 
         <v-list-tile avatar v-for="(pair, i) in lesson.lessons" :key="i">
           <v-list-tile-content>
-            <v-list-tile-sub-title>{{
+            <v-list-tile-sub-title>
+              {{
               lessons[pair.Lesson_ID - 1].name
-            }}</v-list-tile-sub-title>
+              }}
+            </v-list-tile-sub-title>
+            <!--  -->
             <v-list-tile-content
+              v-if="pair.dif_weeks == 1 && pair.lecturer_fw != null && pair.lecturer_sw != null"
               v-bind:class="[
                 pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
               ]"
-              >{{ pair.full_lesson }}</v-list-tile-content
             >
+              {{ pair.cab_fw }} {{ pair.subject_fw }}
+              <router-link
+                class="teacher-link"
+                v-bind:class="[
+                pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
+              ]"
+                :to="{ name: 'teacher', params: {fio: pair.lecturer_fw} }"
+              >{{ pair.lecturer_fw }}</router-link>
+              &nbsp;/&nbsp;
+              {{ pair.cab_sw }} {{ pair.subject_sw }}
+              <router-link
+                class="teacher-link"
+                v-bind:class="[
+                pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
+              ]"
+                :to="{ name: 'teacher', params: {fio: pair.lecturer_sw} }"
+              >{{ pair.lecturer_sw }}</router-link>
+            </v-list-tile-content>
+            <v-list-tile-content v-else>
+              <router-link
+                class="teacher-link"
+                v-if="pair.lecturer_fw == null"
+                v-bind:class="[
+                pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
+              ]"
+                :to="{ name: 'teacher', params: {fio: pair.lecturer_sw} }"
+              >{{ pair.full_lesson }}</router-link>
+              <router-link
+                class="teacher-link"
+                v-else
+                v-bind:class="[
+                pair.Subject_Type === 'Семинарские занятия' ? 'sem' : 'lec',
+              ]"
+                :to="{ name: 'teacher', params: {fio: pair.lecturer_fw} }"
+              >{{ pair.full_lesson }}</router-link>
+            </v-list-tile-content>
+            <!--  -->
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -103,5 +143,9 @@ export default {
     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
   text-decoration: none;
   margin-bottom: 5px;
+}
+
+.teacher-link {
+  display: contents;
 }
 </style>
