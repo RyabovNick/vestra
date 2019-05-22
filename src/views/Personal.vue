@@ -1,8 +1,8 @@
 <template>
   <v-container fluid fill-height>
-    <v-layout align-center justify-center>
+    <v-layout wrap justify-center>
       <v-flex xs12 sm8 md4>
-        <v-card class="elevation-12">
+        <v-card class="elevation-12 personal-info">
           <v-toolbar dark color="primary">
             <v-toolbar-title>Персональная информация</v-toolbar-title>
           </v-toolbar>
@@ -12,14 +12,36 @@
           >{{ item.name }}: {{user[item.value]}}</v-card-text>
         </v-card>
       </v-flex>
+      <v-flex v-if="loading" xs11 sm8 md5 offset-md1 justify-center>
+        <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
+      </v-flex>
+      <v-flex
+        v-if="mySchedule[0] !== undefined && !loading"
+        xs11
+        sm8
+        md5
+        offset-md1
+        justify-space-between
+      >
+        <teachers-schedule v-if="user.role === 'Teachers'" :schedule="mySchedule"></teachers-schedule>
+        <students-schedule v-else :schedule="mySchedule"></students-schedule>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+import TeachersSchedule from '../components/TeachersSchedule';
+import StudentsSchedule from '../components/StudentsSchedule';
+
 export default {
+  components: {
+    TeachersSchedule,
+    StudentsSchedule,
+  },
   data: () => ({
+    loading: false,
     userFields: [
       { name: 'ФИО', value: 'fio' },
       {
@@ -32,9 +54,26 @@ export default {
       },
     ],
   }),
+  mounted() {
+    this.loading = true;
+    this.getMySchedule({
+      name: this.user.fio,
+      role: this.user.role,
+      group: this.user.caf,
+    }).then(res => {
+      this.loading = false;
+    });
+    // TODO - error
+  },
+  methods: {
+    ...mapActions({
+      getMySchedule: 'schedule/getMySchedule',
+    }),
+  },
   computed: {
     ...mapGetters({
       user: 'auth/currentUser',
+      mySchedule: 'schedule/mySchedule',
     }),
   },
 };
@@ -43,5 +82,9 @@ export default {
 <style>
 .v-toolbar__title {
   padding-left: 1em;
+}
+
+.personal-info {
+  margin-bottom: 1em;
 }
 </style>
