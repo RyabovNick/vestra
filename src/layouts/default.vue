@@ -19,7 +19,7 @@
             </v-flex>
           </v-layout>
           <v-list-group
-            v-else-if="item.children"
+            v-else-if="item.children && item.access"
             v-model="item.model"
             :key="item.text"
             :prepend-icon="item.model ? item.icon : item['icon-alt']"
@@ -30,7 +30,10 @@
                 <v-list-tile-title>{{ item.text }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile v-for="(child, i) in item.children" :key="i">
+            <v-list-tile
+              v-for="(child, i) in prepareChild(item.children)"
+              :key="i"
+            >
               <router-link class="v-list__tile" :to="child.link">
                 <v-list-tile-action v-if="child.icon">
                   <v-icon>{{ child.icon }}</v-icon>
@@ -41,7 +44,10 @@
               </router-link>
             </v-list-tile>
           </v-list-group>
-          <v-list-tile v-else :key="item.text">
+          <v-list-tile
+            v-else-if="!item.children && item.access"
+            :key="item.text"
+          >
             <router-link class="v-list__tile" :to="item.link">
               <v-list-tile-action>
                 <v-icon>{{ item.icon }}</v-icon>
@@ -53,7 +59,7 @@
           </v-list-tile>
         </template>
         <template>
-          <v-list-tile @click="logout()">
+          <v-list-tile v-if="isAuthenticated" @click="logout()">
             <v-list-tile-action>
               <v-icon>exit_to_app</v-icon>
             </v-list-tile-action>
@@ -64,16 +70,37 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="primary" dark app fixed>
+    <v-toolbar
+      :clipped-left="$vuetify.breakpoint.lgAndUp"
+      color="primary"
+      dark
+      app
+      fixed
+    >
       <v-toolbar-title class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span class="hidden-sm-and-down test">Vestra</span>
+        <v-btn icon large @click="$router.go(-1)">
+          <v-icon title="Назад">arrow_back</v-icon>
+        </v-btn>
+        <router-link class="btn btn--flat btn--router head-name" to="/">
+          <span class="hidden-sm-and-down">Vestra</span>
+        </router-link>
       </v-toolbar-title>
-      <v-btn icon large @click="$router.go(-1)">
-        <v-icon title="Версия для слабовидящих">arrow_back</v-icon>
-      </v-btn>
+
       <v-spacer></v-spacer>
-      <div v-for="(item, index) in toolbar" :key="index" class="toolbar__items">
+      <div v-if="!isAuthenticated" class="toolbar__items">
+        <router-link class="btn btn--flat btn--router enter-link" to="/login">
+          <div class="btn__content">
+            <span>Войти</span>
+          </div>
+        </router-link>
+      </div>
+      <div
+        v-else
+        v-for="(item, index) in toolbar"
+        :key="index"
+        class="toolbar__items"
+      >
         <router-link class="btn btn--flat btn--router" :to="item.link">
           <div class="btn__content">
             <span class="hidden-sm-and-down">{{ item.text }}</span>
@@ -96,48 +123,97 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  data: () => ({
-    dialog: false,
-    drawer: null,
-    items: [
-      { icon: 'home', text: 'Главная', link: '/' },
-      { icon: 'perm_identity', text: 'Личный кабинет', link: '/personal' },
-      { icon: 'message', text: 'Отправить сообщение', link: '/push' },
-      {
-        icon: 'keyboard_arrow_up',
-        'icon-alt': 'keyboard_arrow_down',
-        text: 'Расписание',
-        model: false,
-        children: [
-          { text: 'Моё расписание', link: '/myschedule' },
-          {
-            text: 'Расписание групп',
-            link: '/schedule',
-          },
-          {
-            text: 'Преподаватели',
-            link: '/teachersschedule',
-          },
-        ],
-      },
-    ],
-    toolbar: [{ icon: 'home', text: 'Главная', link: '/test' }],
-  }),
-
+  data: function() {
+    return {
+      dialog: false,
+      drawer: false,
+      // access означает нужно ли показывать пользователю эту страницу в меню
+      items: [
+        { icon: 'home', text: 'Главная', link: '/', access: true },
+        {
+          icon: 'perm_identity',
+          text: 'Личный кабинет',
+          link: '/personal',
+          access: false,
+        },
+        {
+          icon: 'message',
+          text: 'Отправить сообщение',
+          link: '/push',
+          access: false,
+        },
+        {
+          icon: 'keyboard_arrow_up',
+          'icon-alt': 'keyboard_arrow_down',
+          text: 'Расписание',
+          access: true,
+          model: false,
+          children: [
+            { text: 'Моё расписание', link: '/myschedule', access: false },
+            {
+              text: 'Расписание групп',
+              link: '/schedule',
+              access: true,
+            },
+            {
+              text: 'Преподаватели',
+              link: '/teachersschedule',
+              access: true,
+            },
+          ],
+        },
+        {
+          icon: 'keyboard_arrow_up',
+          'icon-alt': 'keyboard_arrow_down',
+          text: 'Абитуриентам',
+          access: true,
+          model: false,
+          children: [
+            { text: 'Все поданные заявки', link: '/abitur/all', access: true },
+            {
+              text: 'Найти себя',
+              link: '/abitur/search',
+              access: true,
+            },
+            {
+              text: 'Проходной балл 2018',
+              link: '/abitur/2018',
+              access: true,
+            },
+          ],
+        },
+      ],
+      toolbar: [{ icon: 'schedule', text: 'Расписание', link: '/personal' }],
+    };
+  },
   computed: {
-    // ...mapGetters(["currentUser", "isAuthenticated"])
-    ...mapActions({
-      userLogout: 'auth/logout',
+    ...mapGetters({
+      isAuthenticated: 'auth/isAuthenticated',
     }),
   },
   methods: {
+    ...mapActions({
+      userLogout: 'auth/logout',
+    }),
     logout() {
-      this.userLogout.then(() => {
+      this.userLogout().then(() => {
         this.$router.push({ name: 'login' });
       });
+    },
+    // вернуть только доступные для пользователя ссылки
+    prepareChild(childen) {
+      return childen.filter(item => item.access === true);
+    },
+  },
+  watch: {
+    // мониторим изменение state isAuthenticated
+    // меняем отображение меню
+    isAuthenticated(newV, oldV) {
+      this.items[1].access = newV;
+      this.items[2].access = newV;
     },
   },
 };
@@ -150,7 +226,22 @@ export default {
 .btn .icon--right {
   margin-left: 0px;
 }
+.head-name {
+  text-decoration: none;
+}
+.enter-link {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1.4em;
+  font-family: 'Consolas', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin-right: 15px;
+}
 .hidden-sm-and-down {
+  color: #ffffff;
+  font-size: 27px;
+  font-family: 'Consolas', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   margin-right: 5px;
 }
 .list__tile a {
@@ -187,7 +278,7 @@ export default {
     margin-right: 2em;
   }
 }
-@media only screen and (min-width: 570px) {
+@media only screen and (min-width: 270px) {
   .v-toolbar__title .hidden-sm-and-down {
     display: initial !important;
   }

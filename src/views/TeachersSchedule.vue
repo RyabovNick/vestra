@@ -15,7 +15,12 @@
               hide-details
             ></v-text-field>
           </v-card-title>
-          <v-data-table :headers="headers" :items="teachers" :search="search">
+          <v-data-table
+            :headers="headers"
+            :items="teachers"
+            :search="search"
+            rows-per-page-text="Записей на странице"
+          >
             <template v-slot:items="props">
               <td>
                 <router-link
@@ -29,7 +34,7 @@
                 :value="true"
                 color="error"
                 icon="warning"
-              >Your search for "{{ search }}" found no results.</v-alert>
+              >По запросу "{{ search }}" ничего не найдено.</v-alert>
             </template>
           </v-data-table>
         </v-card>

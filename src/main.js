@@ -39,6 +39,7 @@ router.beforeEach((to, from, next) => {
   store
     .dispatch('auth/checkAuth')
     .then(() => {
+      // не даём ходить на страницу авторизации, если уже
       if (to.name === 'login') {
         next('/');
       }

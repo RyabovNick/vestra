@@ -23,7 +23,10 @@
         offset-md1
         justify-space-between
       >
-        <teachers-schedule v-if="user.role === 'Teachers'" :schedule="mySchedule"></teachers-schedule>
+        <teachers-schedule
+          v-if="user.role === 'Teachers'"
+          :schedule="mySchedule"
+        ></teachers-schedule>
         <students-schedule v-else :schedule="mySchedule"></students-schedule>
       </v-flex>
     </v-layout>
@@ -49,7 +52,7 @@ export default {
         value: 'role',
       },
       {
-        name: 'Кафедра',
+        name: 'Группа',
         value: 'caf',
       },
     ],

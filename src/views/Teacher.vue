@@ -16,7 +16,9 @@
           <v-card-text
             v-if="teacherInfo[0].title !== null"
           >Ученое звание: {{ teacherInfo[0].title }}</v-card-text>
-          <v-card-text v-if="teacherInfo[0].caf !== null">Кафедра: {{ teacherInfo[0].caf }}</v-card-text>
+          <v-card-text
+            v-if="teacherInfo[0].caf !== null"
+          >{{ teacherInfo[0].caf }}</v-card-text>
           <v-card-text
             v-if="teacherInfo[0].position !== null"
           >Должность: {{ teacherInfo[0].position }}</v-card-text>

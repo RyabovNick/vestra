@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <layout v-if="hide"></layout>
+    <layout></layout>
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -19,11 +19,6 @@ export default {
     return {
       //
     };
-  },
-  computed: {
-    hide() {
-      return this.$route.path !== '/login';
-    },
   },
 };
 </script>

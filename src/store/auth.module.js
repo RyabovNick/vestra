@@ -47,6 +47,7 @@ const actions = {
             resolve(res);
           })
           .catch(err => {
+            context.commit(PURGE_AUTH);
             reject(err);
           });
       } else {
@@ -56,7 +57,6 @@ const actions = {
     });
   },
   [SUBSCRIBE]() {
-    console.log('In subscribe');
     try {
       /* используем глобальную переменную, созданную в 
       main.js */
