@@ -9,3 +9,8 @@ export const SET_TEACHERS = 'setTeachers';
 export const SET_MY_SCHEDULE = 'setMySchedule';
 export const SET_GROUP_INFO = 'setGroupInfo';
 export const SET_TEACHER_INFO = 'setTeacherInfo';
+
+// priem.module.js
+export const SET_SPECIALITIES = 'setSpecialities';
+export const SET_SPECIALITY_INFO = 'setSpecialityInfo';
+export const SET_SPECIALITY_PEOPLE = 'setSpecialityPeople';

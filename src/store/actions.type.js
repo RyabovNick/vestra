@@ -14,3 +14,8 @@ export const GET_TEACHERS = 'getTeachers';
 export const GET_MY_SCHEDULE = 'getMySchedule';
 export const GET_GROUP_INFO = 'getGroupInfo';
 export const GET_TEACHERS_INFO = 'getTeacherInfo';
+
+// priem.module.js
+export const GET_SPECIALITIES = 'getSpecialities';
+export const GET_SPECIALITY_INFO = 'getSpecialityInfo';
+export const GET_SPECIALITY_PEOPLE = 'getSpecialityPeople';

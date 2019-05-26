@@ -7,6 +7,8 @@ import MySchedule from './views/MySchedule';
 import TeachersSchedule from './views/TeachersSchedule';
 import Group from './views/Group';
 import Teacher from './views/Teacher';
+import Specialities from './views/Specialities';
+import SpecialityPeople from './views/SpecialityPeople';
 
 export const routes = [
   {
@@ -72,6 +74,18 @@ export const routes = [
     path: '/teacher/:fio',
     name: 'teacher',
     component: Teacher,
+    meta: { authNotRequired: true },
+  },
+  {
+    path: '/priem2018',
+    name: 'priem2018',
+    component: Specialities,
+    meta: { authNotRequired: true },
+  },
+  {
+    path: '/priem2018/:code',
+    name: 'priem2018spec',
+    component: SpecialityPeople,
     meta: { authNotRequired: true },
   },
 ];

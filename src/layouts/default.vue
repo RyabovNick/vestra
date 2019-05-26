@@ -180,7 +180,7 @@ export default {
             },
             {
               text: 'Проходной балл 2018',
-              link: '/abitur/2018',
+              link: '/priem2018',
               access: true,
             },
           ],
@@ -272,7 +272,7 @@ export default {
 }
 @media only screen and (min-width: 1170px) {
   .hidden-sm-and-down {
-    display: inline-block;
+    display: none !important;
   }
   .toolbar__items {
     margin-right: 2em;
