@@ -9,6 +9,10 @@ import Group from './views/Group';
 import Teacher from './views/Teacher';
 import Specialities from './views/Specialities';
 import SpecialityPeople from './views/SpecialityPeople';
+import Development from './views/Development';
+import AuthService from './views/AuthService';
+import ScheduleService from './views/ScheduleService';
+import PushService from './views/PushService';
 
 export const routes = [
   {
@@ -87,6 +91,26 @@ export const routes = [
     name: 'priem2018spec',
     component: SpecialityPeople,
     meta: { authNotRequired: true },
+  },
+  {
+    path: '/development',
+    name: 'development',
+    component: Development,
+  },
+  {
+    path: '/development/auth',
+    name: 'authService',
+    component: AuthService,
+  },
+  {
+    path: '/development/schedule',
+    name: 'scheduleService',
+    component: ScheduleService,
+  },
+  {
+    path: '/development/push',
+    name: 'pushService',
+    component: PushService,
   },
 ];
 

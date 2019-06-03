@@ -82,7 +82,7 @@ export default {
           this.login({ username: this.name, password: this.password })
             .then(() => {
               console.log('success login');
-              this.$router.push({ name: 'home' });
+              this.$router.push({ name: 'personal' });
             })
             .catch(err => {
               this.msg =

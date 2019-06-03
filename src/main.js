@@ -8,6 +8,7 @@ import './registerServiceWorker';
 // eslint-disable-next-line import/no-unresolved
 import * as firebase from 'firebase';
 import ApiService from '@/lib/api.service';
+import 'code-prettify/styles/sunburst.css';
 
 Vue.config.productionTip = false;
 
