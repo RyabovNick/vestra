@@ -1,7 +1,9 @@
 <template>
   <v-container fluid fill-height>
     <v-layout wrap justify-center>
-      <v-flex xs12 justify-center>
+      <v-flex xs11 justify-center>
+        <h1>Выполнение бакалаврских и магистерских работ в приложении Vestra</h1>
+        <p></p>
         <pre class="prettyprint lang-js">
           class Foo
           {
@@ -17,8 +19,6 @@
 </template>
 
 <script>
-import prettyPrint from 'code-prettify';
-
 export default {
   components: {},
   data() {
@@ -33,9 +33,12 @@ export default {
     };
   },
   mounted() {
-    this.$nextTick(() => {
-      prettyPrint.prettyPrint();
-    });
+    let script = document.createElement('script');
+    script.setAttribute(
+      'src',
+      'https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js',
+    );
+    document.head.appendChild(script);
   },
 };
 </script>
@@ -45,6 +48,6 @@ export default {
   max-width: 1000px;
 }
 .prettyprint {
-  background-color: #18224b !important;
+  background-color: #ffffff !important;
 }
 </style>
