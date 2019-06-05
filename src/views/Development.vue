@@ -1,0 +1,50 @@
+<template>
+  <v-container fluid fill-height>
+    <v-layout wrap justify-center>
+      <v-flex xs12 justify-center>
+        <pre class="prettyprint lang-js">
+          class Foo
+          {
+            internal Foo()
+            {
+              for (int i = 0; i = 42; ++i);
+            }
+          }
+        </pre>
+      </v-flex>
+    </v-layout>
+  </v-container>
+</template>
+
+<script>
+import prettyPrint from 'code-prettify';
+
+export default {
+  components: {},
+  data() {
+    return {
+      sourcecode: `
+      logout() {
+        this.userLogout().then(() => {
+          this.$router.push({ name: 'login' });
+        });
+      }
+      `,
+    };
+  },
+  mounted() {
+    this.$nextTick(() => {
+      prettyPrint.prettyPrint();
+    });
+  },
+};
+</script>
+
+<style scoped>
+.container.fluid {
+  max-width: 1000px;
+}
+.prettyprint {
+  background-color: #18224b !important;
+}
+</style>
