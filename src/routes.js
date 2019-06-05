@@ -9,6 +9,7 @@ import Group from './views/Group';
 import Teacher from './views/Teacher';
 import Specialities from './views/Specialities';
 import SpecialityPeople from './views/SpecialityPeople';
+import Development from './views/Development.vue';
 
 export const routes = [
   {
@@ -87,6 +88,11 @@ export const routes = [
     name: 'priem2018spec',
     component: SpecialityPeople,
     meta: { authNotRequired: true },
+  },
+  {
+    path: '/development',
+    name: 'development',
+    component: Development,
   },
 ];
 

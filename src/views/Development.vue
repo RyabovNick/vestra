@@ -17,8 +17,6 @@
 </template>
 
 <script>
-import prettyPrint from 'code-prettify';
-
 export default {
   components: {},
   data() {
@@ -33,9 +31,15 @@ export default {
     };
   },
   mounted() {
-    this.$nextTick(() => {
-      prettyPrint.prettyPrint();
-    });
+    let script = document.createElement('script');
+    script.setAttribute(
+      'src',
+      'https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js',
+    );
+    document.head.appendChild(script);
+    // this.$nextTick(() => {
+    //   prettyPrint.prettyPrint();
+    // });
   },
 };
 </script>
@@ -45,6 +49,6 @@ export default {
   max-width: 1000px;
 }
 .prettyprint {
-  background-color: #18224b !important;
+  background-color: #ffffff !important;
 }
 </style>
