@@ -4,15 +4,11 @@
       <v-flex v-if="loading" xs11 sm8 md5 offset-md1 justify-center>
         <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
       </v-flex>
-      <v-flex v-else xs12 sm11 md7 lg6>
+      <v-flex v-else xs12 sm11 md7 lg5>
         <v-toolbar dark color="primary">
           <v-toolbar-title>Cпециальность {{$route.params.code}} (2018 год)</v-toolbar-title>
         </v-toolbar>
-        <v-card
-          class="elevation-12 spec-info"
-          v-for="(item,i) in specialityInfo"
-          :key="i"
-        >
+        <v-card class="elevation-12 spec-info" v-for="(item,i) in specialityInfo" :key="i">
           <v-card-text>
             <b>Конкурсная группа:</b>
             {{item.group}}
@@ -39,7 +35,7 @@
           </v-card-text>
         </v-card>
       </v-flex>
-      <v-flex xs12 sm11 md9 lg6 justify-center>
+      <v-flex xs12 sm11 md9 lg5 offset-lg1 justify-center>
         <v-card>
           <v-data-table
             :headers="headers"

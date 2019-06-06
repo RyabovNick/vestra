@@ -30,11 +30,11 @@ steps:
         from_secret: VUE_APP_publicVapidKey
       PORT: 3000
     when:
-    branch:
-      - master
-    event:
-      - push
-      - pull-request
+      branch:
+        - master
+      event:
+        - push
+        - pull-request
 
   - name: deploy
     image: docker

@@ -30,11 +30,11 @@
         <img class="mobile-img mb-3" src="/img/instruction/13.png">
         <h2 class="display-1 mb-3">Браузерная версия</h2>
         <p>Приложением можно пользоваться не только с телефона, но и с компьютера. Можно также разрешить получение уведомлений</p>
-        <img class="mobile-img mb-3" src="/img/instruction/pc1.png">
+        <img class="mobile-img mb-3" src="/img/instruction/pc_1.png">
         <p>Уведомления будут выглядеть так (появляются в левом/правом нижнем углу экрана):</p>
-        <img class="mobile-img mb-3" src="/img/instruction/pc2.png">
+        <img class="mobile-img mb-3" src="/img/instruction/pc_2.png">
         <p>Вы также можете управлять разрешениями</p>
-        <img class="mobile-img mb-3" src="/img/instruction/pc3.png">
+        <img class="mobile-img mb-3" src="/img/instruction/pc_3.png">
       </v-flex>
     </v-layout>
   </v-container>
