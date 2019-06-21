@@ -19,3 +19,4 @@ export const GET_TEACHERS_INFO = 'getTeacherInfo';
 export const GET_SPECIALITIES = 'getSpecialities';
 export const GET_SPECIALITY_INFO = 'getSpecialityInfo';
 export const GET_SPECIALITY_PEOPLE = 'getSpecialityPeople';
+export const GET_SPECIALITY_APPLICANTS = 'getSpecialityApplicants';

@@ -52,7 +52,9 @@ const ApiService = {
   },
 
   delete(resource, params) {
-    return Vue.axios.delete(`${resource}`, { data: params });
+    return Vue.axios.delete(`${resource}`, {
+      data: params,
+    });
   },
 
   upload(resource, params) {

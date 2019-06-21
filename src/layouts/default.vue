@@ -169,7 +169,7 @@ export default {
           ],
         },
         {
-          icon: '',
+          icon: 'keyboard_arrow_up',
           'icon-alt': 'keyboard_arrow_down',
           text: 'Разработка',
           access: false,
