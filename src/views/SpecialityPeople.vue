@@ -11,7 +11,7 @@
         <v-card class="elevation-12 spec-info" v-for="(item,i) in specialityInfo" :key="i">
           <router-link
             class="spec-link"
-            :to="{ name: 'priem2018spec', params: {code: $route.params.code, filter: '{{item.group}}' } }"
+            :to="{ name: 'lastYearPeople', params: {code: $route.params.code, filter: '{{item.group}}' } }"
           >
             <v-card-text onclick="
                 route.params = false

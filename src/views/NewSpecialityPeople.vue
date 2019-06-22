@@ -127,7 +127,7 @@ export default {
   computed: {
     ...mapGetters({
       newSpecialityInfo: 'priem/newSpecialityInfo',
-      newSpecialityPeole: 'priem/newSpecialityPeople',
+      newSpecialityPeople: 'priem/newSpecialityPeople',
     }),
   },
 };
