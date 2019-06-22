@@ -8,7 +8,7 @@
         <v-toolbar dark color="primary">
           <v-toolbar-title>Cпециальность {{$route.params.code}} ({{$route.params.year}} год)</v-toolbar-title>
         </v-toolbar>
-        <v-card class="elevation-12 spec-info" v-for="(item,i) in specialityInfo" :key="i">
+        <v-card class="elevation-12 spec-info" v-for="(item,i) in newSpecialityInfo" :key="i">
           <v-card-text>
             <b>Конкурсная группа:</b>
             {{item.group}}
@@ -39,7 +39,7 @@
         <v-card>
           <v-data-table
             :headers="headers"
-            :items="specialityApplicants"
+            :items="newSpecialityPeople"
             :pagination.sync="pagination"
             rows-per-page-text="Записей на странице"
           >
@@ -106,11 +106,11 @@ export default {
   },
   mounted() {
     // TODO - error
-    this.getSpecialityInfo({ code: this.$route.params.code })
+    this.getNewSpecialityInfo({ code: this.$route.params.code })
       .then(res => {
-        console.log('specialityInfo: ', this.specialityInfo);
+        console.log('newSpecialityInfo: ', this.newSpecialityInfo);
         this.loading = false;
-        this.getSpecialityApplicants({
+        this.getNewSpecialityPeople({
           code: this.$route.params.code,
         }).then(res => {
           this.loading = false;
@@ -120,14 +120,14 @@ export default {
   },
   methods: {
     ...mapActions({
-      getSpecialityInfo: 'priem/getSpecialityInfo',
-      getSpecialityApplicants: 'priem/getSpecialityApplicants',
+      getNewSpecialityInfo: 'priem/getNewSpecialityInfo',
+      getNewSpecialityPeople: 'priem/getNewSpecialityPeople',
     }),
   },
   computed: {
     ...mapGetters({
-      specialityInfo: 'priem/specialityInfo',
-      specialityApplicants: 'priem/specialityApplicants',
+      newSpecialityInfo: 'priem/newSpecialityInfo',
+      newSpecialityPeole: 'priem/newSpecialityPeople',
     }),
   },
 };

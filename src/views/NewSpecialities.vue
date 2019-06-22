@@ -17,7 +17,7 @@
           </v-card-title>
           <v-data-table
             :headers="headers"
-            :items="specialities"
+            :items="newSpecialities"
             :search="search"
             rows-per-page-text="Записей на странице"
           >
@@ -25,7 +25,7 @@
               <td>
                 <router-link
                   class="spec-link"
-                  :to="{ name: 'specialityApplicants', params: {code: props.item.code, year: '2019'} }"
+                  :to="{ name: 'currentYearPeople', params: {code: props.item.code, year: '2019'} }"
                 >{{ props.item.spec }} ({{ props.item.code}})</router-link>
               </td>
             </template>
@@ -64,17 +64,17 @@ export default {
     };
   },
   mounted() {
-    this.getSpecialities().then(res => {});
+    this.getNewSpecialities().then(res => {});
     // TODO - error
   },
   methods: {
     ...mapActions({
-      getSpecialities: 'priem/getSpecialities',
+      getNewSpecialities: 'priem/getNewSpecialities',
     }),
   },
   computed: {
     ...mapGetters({
-      specialities: 'priem/specialities',
+      newSpecialities: 'priem/newSpecialities',
     }),
   },
 };

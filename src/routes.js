@@ -7,10 +7,10 @@ import MySchedule from './views/MySchedule';
 import TeachersSchedule from './views/TeachersSchedule';
 import Group from './views/Group';
 import Teacher from './views/Teacher';
-import SpecialityDirections from './views/SpecialityDirections';
-import SpecialityApplicants from './views/SpecialityApplicants';
 import Specialities from './views/Specialities';
 import SpecialityPeople from './views/SpecialityPeople';
+import NewSpecialities from './views/NewSpecialities';
+import NewSpecialityPeople from './views/NewSpecialityPeople';
 import Development from './views/Development';
 import AuthService from './views/AuthService';
 import ScheduleService from './views/ScheduleService';
@@ -96,33 +96,33 @@ export const routes = [{
     },
   },
   {
-    path: '/abitur/all',
-    name: 'specialityDirections',
-    component: SpecialityDirections,
-    meta: {
-      authNotRequired: true
-    },
-  },
-  {
-    path: '/abitur/all/:code',
-    name: 'specialityApplicants',
-    component: SpecialityApplicants,
-    meta: {
-      authNotRequired: true
-    },
-  },
-  {
-    path: '/priem2018',
-    name: 'priem2018',
+    path: '/lastYear',
+    name: 'lastYear',
     component: Specialities,
     meta: {
       authNotRequired: true
     },
   },
   {
-    path: '/priem2018/:code',
-    name: 'priem2018spec',
+    path: '/lastYear/:code',
+    name: 'lastYearPeople',
     component: SpecialityPeople,
+    meta: {
+      authNotRequired: true
+    },
+  },
+  {
+    path: '/abitur/all',
+    name: 'currentYear',
+    component: NewSpecialities,
+    meta: {
+      authNotRequired: true
+    },
+  },
+  {
+    path: '/abitur/all/:code',
+    name: 'currentYearPeople',
+    component: NewSpecialityPeople,
     meta: {
       authNotRequired: true
     },

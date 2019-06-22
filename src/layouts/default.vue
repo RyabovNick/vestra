@@ -163,7 +163,7 @@ export default {
             },
             {
               text: 'Проходной балл 2018',
-              link: '/priem2018',
+              link: '/lastYear',
               access: true,
             },
           ],

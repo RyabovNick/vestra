@@ -25,7 +25,7 @@
               <td>
                 <router-link
                   class="spec-link"
-                  :to="{ name: 'priem2018spec', params: {code: props.item.code} }"
+                  :to="{ name: 'lastYearPeople', params: {code: props.item.code} }"
                 >{{ props.item.spec }} ({{ props.item.code}})</router-link>
               </td>
             </template>
