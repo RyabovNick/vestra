@@ -59,7 +59,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import { scrypt } from 'crypto';
 
 export default {
   data() {

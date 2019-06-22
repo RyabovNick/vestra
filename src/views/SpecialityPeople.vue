@@ -9,43 +9,30 @@
           <v-toolbar-title>Cпециальность {{$route.params.code}} (2018 год)</v-toolbar-title>
         </v-toolbar>
         <v-card class="elevation-12 spec-info" v-for="(item,i) in specialityInfo" :key="i">
-          <router-link
-            class="spec-link"
-            :to="{ name: 'lastYearPeople', params: {code: $route.params.code, filter: '{{item.group}}' } }"
-          >
-            <v-card-text onclick="
-                route.params = false
-
-            ">
-              <b>Тест:</b>
-              {{item.group}}
-            </v-card-text>
-
-            <v-card-text>
-              <b>Конкурсная группа:</b>
-              {{item.group}}
-            </v-card-text>
-            <v-card-text>
-              <b>Форма обучения:</b>
-              {{item.form}}
-            </v-card-text>
-            <v-card-text>
-              <b>Уровень подготовки:</b>
-              {{item.level}}
-            </v-card-text>
-            <v-card-text>
-              <b>Основание поступления:</b>
-              {{item.osnov}}
-            </v-card-text>
-            <v-card-text>
-              <b>Специальность:</b>
-              {{item.spec}}
-            </v-card-text>
-            <v-card-text>
-              <b>Количество мест:</b>
-              {{item.places}}
-            </v-card-text>
-          </router-link>
+          <v-card-text>
+            <b>Конкурсная группа:</b>
+            {{item.group}}
+          </v-card-text>
+          <v-card-text>
+            <b>Форма обучения:</b>
+            {{item.form}}
+          </v-card-text>
+          <v-card-text>
+            <b>Уровень подготовки:</b>
+            {{item.level}}
+          </v-card-text>
+          <v-card-text>
+            <b>Основание поступления:</b>
+            {{item.osnov}}
+          </v-card-text>
+          <v-card-text>
+            <b>Специальность:</b>
+            {{item.spec}}
+          </v-card-text>
+          <v-card-text>
+            <b>Количество мест:</b>
+            {{item.places}}
+          </v-card-text>
         </v-card>
       </v-flex>
       <v-flex xs12 sm11 md9 lg5 offset-lg1 justify-center>
@@ -57,16 +44,12 @@
             rows-per-page-text="Записей на странице"
           >
             <template v-slot:items="props">
-              <tr
-                v-if="$route.params.filter === undefined || props.item.konkursGroup === $route.params.filter"
-              >
-                <td>{{ $route.params.filter }}</td>
-                <td>{{ props.item.fio }}</td>
-                <td>{{ props.item.sum }}</td>
-                <td>{{ props.item.konkursGroup }}</td>
-                <td>{{ props.item.indiv }}</td>
-                <td>{{ props.item.ege }}</td>
-              </tr>
+              <td>{{ $route.params.filter }}</td>
+              <td>{{ props.item.fio }}</td>
+              <td>{{ props.item.sum }}</td>
+              <td>{{ props.item.konkursGroup }}</td>
+              <td>{{ props.item.indiv }}</td>
+              <td>{{ props.item.ege }}</td>
             </template>
           </v-data-table>
         </v-card>
@@ -160,8 +143,5 @@ export default {
 }
 .spec-info {
   margin-bottom: 1em;
-}
-.elevation-12 {
-  cursor: pointer;
 }
 </style>
