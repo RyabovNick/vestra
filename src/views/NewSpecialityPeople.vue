@@ -6,9 +6,9 @@
       </v-flex>
       <v-flex v-else xs12 sm11 md7 lg5>
         <v-toolbar dark color="primary">
-          <v-toolbar-title>Cпециальность {{$route.params.code}} (2018 год)</v-toolbar-title>
+          <v-toolbar-title>Cпециальность {{$route.params.code}} ({{$route.params.year}} год)</v-toolbar-title>
         </v-toolbar>
-        <v-card class="elevation-12 spec-info" v-for="(item,i) in specialityInfo" :key="i">
+        <v-card class="elevation-12 spec-info" v-for="(item,i) in newSpecialityInfo" :key="i">
           <v-card-text>
             <b>Конкурсная группа:</b>
             {{item.group}}
@@ -39,12 +39,11 @@
         <v-card>
           <v-data-table
             :headers="headers"
-            :items="specialityPeople"
+            :items="newSpecialityPeople"
             :pagination.sync="pagination"
             rows-per-page-text="Записей на странице"
           >
             <template v-slot:items="props">
-              <td>{{ $route.params.filter }}</td>
               <td>{{ props.item.fio }}</td>
               <td>{{ props.item.sum }}</td>
               <td>{{ props.item.konkursGroup }}</td>
@@ -106,11 +105,11 @@ export default {
   },
   mounted() {
     // TODO - error
-    this.getSpecialityInfo({ code: this.$route.params.code })
+    this.getNewSpecialityInfo({ code: this.$route.params.code })
       .then(res => {
-        console.log('specialityInfo: ', this.specialityInfo);
+        console.log('newSpecialityInfo: ', this.newSpecialityInfo);
         this.loading = false;
-        this.getSpecialityPeople({
+        this.getNewSpecialityPeople({
           code: this.$route.params.code,
         }).then(res => {
           this.loading = false;
@@ -120,14 +119,14 @@ export default {
   },
   methods: {
     ...mapActions({
-      getSpecialityInfo: 'priem/getSpecialityInfo',
-      getSpecialityPeople: 'priem/getSpecialityPeople',
+      getNewSpecialityInfo: 'priem/getNewSpecialityInfo',
+      getNewSpecialityPeople: 'priem/getNewSpecialityPeople',
     }),
   },
   computed: {
     ...mapGetters({
-      specialityInfo: 'priem/specialityInfo',
-      specialityPeople: 'priem/specialityPeople',
+      newSpecialityInfo: 'priem/newSpecialityInfo',
+      newSpecialityPeople: 'priem/newSpecialityPeople',
     }),
   },
 };

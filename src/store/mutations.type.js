@@ -14,3 +14,7 @@ export const SET_TEACHER_INFO = 'setTeacherInfo';
 export const SET_SPECIALITIES = 'setSpecialities';
 export const SET_SPECIALITY_INFO = 'setSpecialityInfo';
 export const SET_SPECIALITY_PEOPLE = 'setSpecialityPeople';
+
+export const SET_NEW_SPECIALITIES = 'setNewSpecialities';
+export const SET_NEW_SPECIALITY_INFO = 'setNewSpecialityInfo';
+export const SET_NEW_SPECIALITY_PEOPLE = 'setNewSpecialityPeople';

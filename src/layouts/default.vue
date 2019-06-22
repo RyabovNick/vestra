@@ -163,13 +163,13 @@ export default {
             },
             {
               text: 'Проходной балл 2018',
-              link: '/priem2018',
+              link: '/lastYear',
               access: true,
             },
           ],
         },
         {
-          icon: '',
+          icon: 'keyboard_arrow_up',
           'icon-alt': 'keyboard_arrow_down',
           text: 'Разработка',
           access: false,
