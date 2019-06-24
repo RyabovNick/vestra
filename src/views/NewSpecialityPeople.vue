@@ -50,6 +50,7 @@
                 <td>{{ props.item.konkursGroup }}</td>
                 <td>{{ props.item.indiv }}</td>
                 <td>{{ props.item.ege }}</td>
+                <!-- To commit -->
               </tr>
             </template>
           </v-data-table>
