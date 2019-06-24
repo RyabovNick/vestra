@@ -37,22 +37,25 @@
       </v-flex>
       <v-flex xs12 sm11 md9 lg5 offset-lg1 justify-center>
         <v-card>
-          <v-data-table
-            :headers="headers"
-            :items="newSpecialityPeople"
-            :pagination.sync="pagination"
-            rows-per-page-text="Записей на странице"
-          >
-            <template v-slot:items="props">
-              <tr v-bind:class="{ credited: (props.item.credited == 'false' ? false : true) }">
-                <td>{{ props.item.fio }}</td>
-                <td>{{ props.item.sum }}</td>
-                <td>{{ props.item.konkursGroup }}</td>
-                <td>{{ props.item.indiv }}</td>
-                <td>{{ props.item.ege }}</td>
-              </tr>
-            </template>
-          </v-data-table>
+          <div class="no-data" v-if="newSpecialityPeople.length === 0">Нет данных</div>
+          <div v-else>
+            <v-data-table
+              :headers="headers"
+              :items="newSpecialityPeople"
+              :pagination.sync="pagination"
+              rows-per-page-text="Записей на странице"
+            >
+              <template v-slot:items="props">
+                <tr v-bind:class="{ credited: (props.item.credited == 'false' ? false : true) }">
+                  <td>{{ props.item.fio }}</td>
+                  <td>{{ props.item.sum }}</td>
+                  <td>{{ props.item.konkursGroup }}</td>
+                  <td>{{ props.item.indiv }}</td>
+                  <td>{{ props.item.ege }}</td>
+                </tr>
+              </template>
+            </v-data-table>
+          </div>
         </v-card>
       </v-flex>
     </v-layout>
@@ -144,6 +147,13 @@ export default {
 }
 .spec-info {
   margin-bottom: 1em;
+}
+.no-data {
+  padding: 30px 50px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: #18224b;
 }
 .credited td {
   background: rgba(0, 220, 0, 0.74);
