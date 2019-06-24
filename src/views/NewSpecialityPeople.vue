@@ -16,7 +16,7 @@
       </v-flex>
       <v-flex v-else xs12 sm11 md7 lg5>
         <v-toolbar dark color="primary">
-          <v-toolbar-title>Cпециальность {{$route.params.code}} ({{$route.params.year}} год)</v-toolbar-title>
+          <v-toolbar-title>Cпециальность {{$route.params.code}} (2019 год)</v-toolbar-title>
         </v-toolbar>
         <v-card class="elevation-12 spec-info" v-for="(item,i) in newSpecialityInfo" :key="i">
           <v-card-text>

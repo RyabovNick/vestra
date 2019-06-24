@@ -8,7 +8,15 @@
         <v-toolbar dark color="primary">
           <v-toolbar-title>Cпециальность {{$route.params.code}} (2018 год)</v-toolbar-title>
         </v-toolbar>
-        <v-card class="elevation-12 spec-info" v-for="(item,i) in specialityInfo" :key="i">
+        <v-card
+          class="elevation-12 spec-info"
+          v-for="(item,i) in specialityInfo"
+          :key="i"
+          v-on:click="
+          pagination.rowsPerPage = -1;
+          filter = (filter === item.group ? '' : item.group);"
+          v-bind:class="{ active: filter === item.group }"
+        >
           <v-card-text>
             <b>Конкурсная группа:</b>
             {{item.group}}
@@ -46,11 +54,13 @@
               rows-per-page-text="Записей на странице"
             >
               <template v-slot:items="props">
-                <td>{{ props.item.fio }}</td>
-                <td>{{ props.item.sum }}</td>
-                <td>{{ props.item.konkursGroup }}</td>
-                <td>{{ props.item.indiv }}</td>
-                <td>{{ props.item.ege }}</td>
+                <tr v-if="props.item.konkursGroup === filter || filter.length === 0">
+                  <td>{{ props.item.fio }}</td>
+                  <td>{{ props.item.sum }}</td>
+                  <td>{{ props.item.konkursGroup }}</td>
+                  <td>{{ props.item.indiv }}</td>
+                  <td>{{ props.item.ege }}</td>
+                </tr>
               </template>
             </v-data-table>
           </div>
@@ -67,6 +77,7 @@ export default {
   data() {
     return {
       loading: true,
+      filter: '',
       pagination: {
         sortBy: 'sum',
         descending: true,
@@ -152,5 +163,11 @@ export default {
   font-weight: bold;
   font-size: 1.4rem;
   color: #18224b;
+}
+.elevation-12 {
+  cursor: pointer;
+}
+.elevation-12.active {
+  background-color: #d5d5d5;
 }
 </style>

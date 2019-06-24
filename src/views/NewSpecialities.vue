@@ -29,7 +29,7 @@
               <td>
                 <router-link
                   class="spec-link"
-                  :to="{ name: 'currentYearPeople', params: {code: props.item.code, year: '2019'} }"
+                  :to="{ name: 'currentYearPeople', params: {code: props.item.code} }"
                 >{{ props.item.spec }} ({{ props.item.code}})</router-link>
               </td>
             </template>
