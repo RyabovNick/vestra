@@ -5,7 +5,11 @@
         <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
       </v-flex>
       <v-flex xs11 justify-center>
-        <v-card>
+        <v-card
+          class="no-data"
+          v-if="newSpecialities === 'AdmissionCommitteeHasNotStarted'"
+        >Приёмная комиссия не работает</v-card>
+        <v-card v-else>
           <v-card-title>
             <v-text-field
               v-model="search"
@@ -84,6 +88,13 @@ export default {
 .spec-link {
   font-size: 1.6em;
   text-decoration: none;
+}
+.no-data {
+  padding: 30px 50px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: #18224b;
 }
 </style>
 
