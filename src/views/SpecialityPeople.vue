@@ -1,6 +1,6 @@
 <template>
   <v-container fluid fill-height>
-    <v-layout wrap align-center justify-center>
+    <v-layout wrap justify-center>
       <v-flex v-if="loading" xs11 sm8 md5 offset-md1 justify-center>
         <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
       </v-flex>
