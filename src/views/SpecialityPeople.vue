@@ -44,7 +44,6 @@
             rows-per-page-text="Записей на странице"
           >
             <template v-slot:items="props">
-              <td>{{ $route.params.filter }}</td>
               <td>{{ props.item.fio }}</td>
               <td>{{ props.item.sum }}</td>
               <td>{{ props.item.konkursGroup }}</td>
