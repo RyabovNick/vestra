@@ -46,7 +46,7 @@ steps:
       - docker rmi -f $(docker images -f "dangling=true" -q) || true
       - docker container stop vestra || true && docker rm vestra || true
       - docker run -v /usr/share/nginx/html:/usr/share/nginx/html -p 6443:3000 -d --name=vestra nick/vestra
-      when:
+    when:
       branch:
         - master
       event:
