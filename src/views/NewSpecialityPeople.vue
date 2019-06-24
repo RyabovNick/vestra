@@ -18,7 +18,15 @@
         <v-toolbar dark color="primary">
           <v-toolbar-title>Cпециальность {{$route.params.code}} (2019 год)</v-toolbar-title>
         </v-toolbar>
-        <v-card class="elevation-12 spec-info" v-for="(item,i) in newSpecialityInfo" :key="i">
+        <v-card
+          class="elevation-12 spec-info"
+          v-for="(item,i) in newSpecialityInfo"
+          :key="i"
+          v-on:click="
+          pagination.rowsPerPage = -1;
+          filter = (filter === item.group ? '' : item.group);"
+          v-bind:class="{ active: filter === item.group }"
+        >
           <v-card-text>
             <b>Конкурсная группа:</b>
             {{item.group}}
@@ -47,23 +55,6 @@
       </v-flex>
       <v-flex xs12 sm11 md9 lg5 offset-lg1 justify-center>
         <v-card>
-          <v-data-table
-            :headers="headers"
-            :items="newSpecialityPeople"
-            :pagination.sync="pagination"
-            rows-per-page-text="Записей на странице"
-          >
-            <template v-slot:items="props">
-              <tr v-bind:class="{ credited: (props.item.credited == 'false' ? false : true) }">
-                <td>{{ props.item.fio }}</td>
-                <td>{{ props.item.sum }}</td>
-                <td>{{ props.item.konkursGroup }}</td>
-                <td>{{ props.item.indiv }}</td>
-                <td>{{ props.item.ege }}</td>
-                <!-- To commit -->
-              </tr>
-            </template>
-          </v-data-table>
           <div class="no-data" v-if="newSpecialityPeople.length === 0">Нет данных</div>
           <div v-else>
             <v-data-table
@@ -73,7 +64,10 @@
               rows-per-page-text="Записей на странице"
             >
               <template v-slot:items="props">
-                <tr v-bind:class="{ credited: (props.item.credited == 'false' ? false : true) }">
+                <tr
+                  v-if="props.item.konkursGroup === filter || filter.length === 0"
+                  v-bind:class="{ credited: (props.item.credited == 'false' ? false : true) }"
+                >
                   <td>{{ props.item.fio }}</td>
                   <td>{{ props.item.sum }}</td>
                   <td>{{ props.item.konkursGroup }}</td>
@@ -96,6 +90,7 @@ export default {
   data() {
     return {
       loading: true,
+      filter: '',
       pagination: {
         sortBy: 'sum',
         descending: true,
@@ -184,5 +179,11 @@ export default {
 }
 .credited td {
   background: rgba(0, 220, 0, 0.74);
+}
+.elevation-12 {
+  cursor: pointer;
+}
+.elevation-12.active {
+  background-color: #d5d5d5;
 }
 </style>
