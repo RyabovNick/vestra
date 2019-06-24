@@ -1,12 +1,22 @@
 <template>
   <v-container fluid fill-height>
-    <v-layout wrap align-center justify-center>
+    <v-layout
+      v-if="newSpecialityInfo === 'AdmissionCommitteeHasNotStarted' || newSpecialityPeople === 'AdmissionCommitteeHasNotStarted'"
+      wrap
+      align-center
+      justify-center
+    >
+      <v-flex xs12 sm11 md7 lg5>
+        <v-card class="no-data">Приёмная комиссия не работает</v-card>
+      </v-flex>
+    </v-layout>
+    <v-layout v-else wrap align-center justify-center>
       <v-flex v-if="loading" xs11 sm8 md5 offset-md1 justify-center>
         <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
       </v-flex>
       <v-flex v-else xs12 sm11 md7 lg5>
         <v-toolbar dark color="primary">
-          <v-toolbar-title>Cпециальность {{$route.params.code}} ({{$route.params.year}} год)</v-toolbar-title>
+          <v-toolbar-title>Cпециальность {{$route.params.code}} (2019 год)</v-toolbar-title>
         </v-toolbar>
         <v-card class="elevation-12 spec-info" v-for="(item,i) in newSpecialityInfo" :key="i">
           <v-card-text>
@@ -54,6 +64,25 @@
               </tr>
             </template>
           </v-data-table>
+          <div class="no-data" v-if="newSpecialityPeople.length === 0">Нет данных</div>
+          <div v-else>
+            <v-data-table
+              :headers="headers"
+              :items="newSpecialityPeople"
+              :pagination.sync="pagination"
+              rows-per-page-text="Записей на странице"
+            >
+              <template v-slot:items="props">
+                <tr v-bind:class="{ credited: (props.item.credited == 'false' ? false : true) }">
+                  <td>{{ props.item.fio }}</td>
+                  <td>{{ props.item.sum }}</td>
+                  <td>{{ props.item.konkursGroup }}</td>
+                  <td>{{ props.item.indiv }}</td>
+                  <td>{{ props.item.ege }}</td>
+                </tr>
+              </template>
+            </v-data-table>
+          </div>
         </v-card>
       </v-flex>
     </v-layout>
@@ -145,6 +174,13 @@ export default {
 }
 .spec-info {
   margin-bottom: 1em;
+}
+.no-data {
+  padding: 30px 50px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: #18224b;
 }
 .credited td {
   background: rgba(0, 220, 0, 0.74);
