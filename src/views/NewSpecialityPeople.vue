@@ -44,11 +44,13 @@
             rows-per-page-text="Записей на странице"
           >
             <template v-slot:items="props">
-              <td>{{ props.item.fio }}</td>
-              <td>{{ props.item.sum }}</td>
-              <td>{{ props.item.konkursGroup }}</td>
-              <td>{{ props.item.indiv }}</td>
-              <td>{{ props.item.ege }}</td>
+              <tr v-bind:class="{ credited: (props.item.credited == 'false' ? false : true) }">
+                <td>{{ props.item.fio }}</td>
+                <td>{{ props.item.sum }}</td>
+                <td>{{ props.item.konkursGroup }}</td>
+                <td>{{ props.item.indiv }}</td>
+                <td>{{ props.item.ege }}</td>
+              </tr>
             </template>
           </v-data-table>
         </v-card>
@@ -142,5 +144,8 @@ export default {
 }
 .spec-info {
   margin-bottom: 1em;
+}
+.credited td {
+  background: rgba(0, 220, 0, 0.74);
 }
 </style>
