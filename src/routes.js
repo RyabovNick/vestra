@@ -16,12 +16,13 @@ import AuthService from './views/AuthService';
 import ScheduleService from './views/ScheduleService';
 import PushService from './views/PushService';
 
-export const routes = [{
+export const routes = [
+  {
     path: '/index.html',
     component: Home,
     alias: '/',
     meta: {
-      authNotRequired: true
+      authNotRequired: true,
     },
   },
   {
@@ -29,7 +30,7 @@ export const routes = [{
     name: 'home',
     component: Home,
     meta: {
-      authNotRequired: true
+      authNotRequired: true,
     },
   },
   {
@@ -37,7 +38,7 @@ export const routes = [{
     name: 'login',
     component: Login,
     meta: {
-      authNotRequired: true
+      authNotRequired: true,
     },
   },
   {
@@ -46,7 +47,7 @@ export const routes = [{
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import( /* webpackChunkName: "about" */ './views/About.vue'),
+    component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
   },
   {
     path: '/personal',
@@ -57,13 +58,16 @@ export const routes = [{
     path: '/push',
     name: 'push',
     component: Push,
+    meta: {
+      roleRequired: true,
+    },
   },
   {
     path: '/schedule',
     name: 'schedule',
     component: Schedule,
     meta: {
-      authNotRequired: true
+      authNotRequired: true,
     },
   },
   {
@@ -76,7 +80,7 @@ export const routes = [{
     name: 'teachersschedule',
     component: TeachersSchedule,
     meta: {
-      authNotRequired: true
+      authNotRequired: true,
     },
   },
   {
@@ -84,7 +88,7 @@ export const routes = [{
     name: 'group',
     component: Group,
     meta: {
-      authNotRequired: true
+      authNotRequired: true,
     },
   },
   {
@@ -92,7 +96,7 @@ export const routes = [{
     name: 'teacher',
     component: Teacher,
     meta: {
-      authNotRequired: true
+      authNotRequired: true,
     },
   },
   {
@@ -100,7 +104,7 @@ export const routes = [{
     name: 'lastYear',
     component: Specialities,
     meta: {
-      authNotRequired: true
+      authNotRequired: true,
     },
   },
   {
@@ -108,7 +112,7 @@ export const routes = [{
     name: 'lastYearPeople',
     component: SpecialityPeople,
     meta: {
-      authNotRequired: true
+      authNotRequired: true,
     },
   },
   {
@@ -116,7 +120,7 @@ export const routes = [{
     name: 'currentYear',
     component: NewSpecialities,
     meta: {
-      authNotRequired: true
+      authNotRequired: true,
     },
   },
   {
@@ -124,7 +128,7 @@ export const routes = [{
     name: 'currentYearPeople',
     component: NewSpecialityPeople,
     meta: {
-      authNotRequired: true
+      authNotRequired: true,
     },
   },
   {

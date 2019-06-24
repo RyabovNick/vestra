@@ -29,6 +29,8 @@ ApiService.init();
 
 router.beforeEach((to, from, next) => {
   const authRequired = !to.matched.some(route => route.meta.authNotRequired);
+
+  const roleRequired = to.matched.some(route => route.meta.roleRequired);
   /**
    * Проверяем наличие подлинного ключа в любом случае:
    * Если он есть, то пускаем на все страницы, кроме /login
@@ -43,9 +45,16 @@ router.beforeEach((to, from, next) => {
       if (to.name === 'login') {
         next('/');
       }
-      next();
+
+      // проверка наличия необходимой роли
+      if (roleRequired && store.state.auth.user.role === 'Students') {
+        next('/');
+      } else {
+        next();
+      }
     })
     .catch(() => {
+      console.log('false1');
       if (authRequired) {
         next('/login');
       } else {
