@@ -62,7 +62,7 @@ export default {
           text: 'ФИО',
           align: 'left',
           sortable: false,
-          value: 'applicant',
+          value: 'fio',
         },
       ],
     };

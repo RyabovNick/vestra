@@ -67,7 +67,11 @@
                 v-if="props.item.konkursGroup === filter || filter.length === 0"
                 v-bind:class="{ credited: props.item.credited === 'true'}"
               >
-                <td>{{ props.item.fio }}</td>
+                <td>
+                  <router-link
+                    :to="{ name: 'applicant', params: {id: props.item.id} }"
+                  >{{ props.item.fio }}</router-link>
+                </td>
                 <td>{{ props.item.sum }}</td>
                 <td>{{ props.item.konkursGroup }}</td>
                 <td>{{ props.item.indiv }}</td>
