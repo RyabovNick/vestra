@@ -12,6 +12,7 @@ import NewSpecialityPeople from './views/NewSpecialityPeople';
 import FindMyself from './views/FindMyself';
 import Specialities from './views/Specialities';
 import SpecialityPeople from './views/SpecialityPeople';
+import Applicant from './views/Applicant';
 import Development from './views/Development';
 import AuthService from './views/AuthService';
 import ScheduleService from './views/ScheduleService';
@@ -121,9 +122,9 @@ export const routes = [{
     },
   },
   {
-    path: '/abitur/search/:name',
+    path: '/abitur/search/info/:id',
     name: 'applicant',
-    component: FindMyself,
+    component: Applicant,
     meta: {
       authNotRequired: true
     },

@@ -1,60 +1,23 @@
 <template>
   <v-container fluid fill-height>
-    <v-layout wrap justify-center>
-      <v-flex v-if="loading" xs11 sm8 md5 offset-md1 justify-center>
-        <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
+    <v-layout v-if="applicantInfo === 'AdmissionCommitteeHasNotStarted'" wrap justify-center>
+      <v-flex xs12 sm11 md7 lg5>
+        <v-card class="no-data">Приёмная комиссия не работает</v-card>
       </v-flex>
-      <v-flex v-else xs12 sm11 md7 lg5>
-        <v-toolbar dark color="primary">
-          <v-toolbar-title>Cпециальность {{$route.params.code}} (2018 год)</v-toolbar-title>
-        </v-toolbar>
-        <v-card
-          class="elevation-12 spec-info"
-          v-for="(item,i) in specialityInfo"
-          :key="i"
-          v-on:click="
-          pagination.rowsPerPage = -1;
-          filter = (filter === item.group ? '' : item.group);"
-          v-bind:class="{ active: filter === item.group }"
-        >
-          <v-card-text>
-            <b>Конкурсная группа:</b>
-            {{item.group}}
-          </v-card-text>
-          <v-card-text>
-            <b>Форма обучения:</b>
-            {{item.form}}
-          </v-card-text>
-          <v-card-text>
-            <b>Уровень подготовки:</b>
-            {{item.level}}
-          </v-card-text>
-          <v-card-text>
-            <b>Основание поступления:</b>
-            {{item.osnov}}
-          </v-card-text>
-          <v-card-text>
-            <b>Специальность:</b>
-            {{item.spec}}
-          </v-card-text>
-          <v-card-text>
-            <b>Количество мест:</b>
-            {{item.places}}
-          </v-card-text>
-        </v-card>
-      </v-flex>
+    </v-layout>
+    <v-layout v-else wrap justify-center>
       <v-flex xs12 sm11 md9 lg5 offset-lg1 justify-center>
         <v-card>
-          <div class="no-data" v-if="specialityPeople.length === 0">Нет данных</div>
+          <div class="no-data" v-if="applicantInfo.length === 0">Нет данных</div>
           <v-data-table
             v-else
             :headers="headers"
-            :items="specialityPeople"
+            :items="applicantInfo"
             :pagination.sync="pagination"
             rows-per-page-text="Записей на странице"
           >
             <template v-slot:items="props">
-              <tr v-if="props.item.konkursGroup === filter || filter.length === 0">
+              <tr v-bind:class="{ credited: props.item.credited === 'true' }">
                 <td>{{ props.item.fio }}</td>
                 <td>{{ props.item.sum }}</td>
                 <td>{{ props.item.konkursGroup }}</td>
@@ -118,28 +81,20 @@ export default {
   },
   mounted() {
     // TODO - error
-    this.getSpecialityInfo({ code: this.$route.params.code })
+    this.getApplicantInfo({ id: this.$route.params.id })
       .then(res => {
-        console.log('specialityInfo: ', this.specialityInfo);
         this.loading = false;
-        this.getSpecialityPeople({
-          code: this.$route.params.code,
-        }).then(res => {
-          this.loading = false;
-        });
       })
       .catch(err => {});
   },
   methods: {
     ...mapActions({
-      getSpecialityInfo: 'priem/getSpecialityInfo',
-      getSpecialityPeople: 'priem/getSpecialityPeople',
+      getApplicantInfo: 'priem/getApplicantInfo',
     }),
   },
   computed: {
     ...mapGetters({
-      specialityInfo: 'priem/specialityInfo',
-      specialityPeople: 'priem/specialityPeople',
+      applicantInfo: 'priem/applicantInfo',
     }),
   },
 };
@@ -162,6 +117,9 @@ export default {
   font-weight: bold;
   font-size: 1.4rem;
   color: #18224b;
+}
+.credited td {
+  background: rgba(0, 220, 0, 0.74);
 }
 .elevation-12 {
   cursor: pointer;

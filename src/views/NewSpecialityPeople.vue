@@ -55,27 +55,26 @@
       <v-flex xs12 sm11 md9 lg5 offset-lg1 justify-center>
         <v-card>
           <div class="no-data" v-if="newSpecialityPeople.length === 0">Нет данных</div>
-          <div v-else>
-            <v-data-table
-              :headers="headers"
-              :items="newSpecialityPeople"
-              :pagination.sync="pagination"
-              rows-per-page-text="Записей на странице"
-            >
-              <template v-slot:items="props">
-                <tr
-                  v-if="props.item.konkursGroup === filter || filter.length === 0"
-                  v-bind:class="{ credited: (props.item.credited == 'false' ? false : true) }"
-                >
-                  <td>{{ props.item.fio }}</td>
-                  <td>{{ props.item.sum }}</td>
-                  <td>{{ props.item.konkursGroup }}</td>
-                  <td>{{ props.item.indiv }}</td>
-                  <td>{{ props.item.ege }}</td>
-                </tr>
-              </template>
-            </v-data-table>
-          </div>
+          <v-data-table
+            v-else
+            :headers="headers"
+            :items="newSpecialityPeople"
+            :pagination.sync="pagination"
+            rows-per-page-text="Записей на странице"
+          >
+            <template v-slot:items="props">
+              <tr
+                v-if="props.item.konkursGroup === filter || filter.length === 0"
+                v-bind:class="{ credited: props.item.credited === 'true'}"
+              >
+                <td>{{ props.item.fio }}</td>
+                <td>{{ props.item.sum }}</td>
+                <td>{{ props.item.konkursGroup }}</td>
+                <td>{{ props.item.indiv }}</td>
+                <td>{{ props.item.ege }}</td>
+              </tr>
+            </template>
+          </v-data-table>
         </v-card>
       </v-flex>
     </v-layout>

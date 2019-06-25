@@ -9,6 +9,7 @@ import {
   GET_NEW_SPECIALITY_PEOPLE,
 
   GET_APPLICANTS,
+  GET_APPLICANT_INFO,
 } from './actions.type';
 import {
   SET_SPECIALITIES,
@@ -20,6 +21,7 @@ import {
   SET_NEW_SPECIALITY_PEOPLE,
 
   SET_APPLICANTS,
+  SET_APPLICANT_INFO,
 } from './mutations.type';
 
 
@@ -37,6 +39,7 @@ const state = {
   newSpecialityPeople: [],
 
   applicants: [],
+  applicantInfo: [],
 };
 
 const getters = {
@@ -62,6 +65,9 @@ const getters = {
 
   applicants(state) {
     return state.applicants;
+  },
+  applicantInfo(state) {
+    return state.applicantInfo;
   },
 };
 
@@ -103,7 +109,6 @@ const actions = {
     code
   }) {
     return new Promise((resolve, reject) => {
-      console.log(`${scheduleService}/people/${code}`);
       axios
         .get(`${scheduleService}/people/${code}`)
         .then(({
@@ -154,7 +159,6 @@ const actions = {
     code
   }) {
     return new Promise((resolve, reject) => {
-      console.log(`${scheduleService2}/people/${code}`);
       axios
         .get(`${scheduleService2}/people/${code}`)
         .then(({
@@ -177,6 +181,23 @@ const actions = {
           data
         }) => {
           context.commit(SET_APPLICANTS, data);
+          return resolve(data);
+        })
+        .catch(err => {
+          return reject(err);
+        });
+    });
+  },
+  [GET_APPLICANT_INFO](context, {
+    id
+  }) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`${applicantsPath}/info/${id}`)
+        .then(({
+          data
+        }) => {
+          context.commit(SET_APPLICANT_INFO, data);
           return resolve(data);
         })
         .catch(err => {
@@ -209,6 +230,9 @@ const mutations = {
 
   [SET_APPLICANTS](state, data) {
     state.applicants = data;
+  },
+  [SET_APPLICANT_INFO](state, data) {
+    state.applicantInfo = data;
   },
 };
 

@@ -20,3 +20,4 @@ export const SET_NEW_SPECIALITY_INFO = 'setNewSpecialityInfo';
 export const SET_NEW_SPECIALITY_PEOPLE = 'setNewSpecialityPeople';
 
 export const SET_APPLICANTS = 'setApplicants';
+export const SET_APPLICANT_INFO = 'setApplicantInfo';
