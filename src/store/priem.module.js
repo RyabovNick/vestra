@@ -3,33 +3,40 @@ import {
   GET_SPECIALITIES,
   GET_SPECIALITY_INFO,
   GET_SPECIALITY_PEOPLE,
-  
+
   GET_NEW_SPECIALITIES,
   GET_NEW_SPECIALITY_INFO,
   GET_NEW_SPECIALITY_PEOPLE,
+
+  GET_APPLICANTS,
 } from './actions.type';
 import {
   SET_SPECIALITIES,
   SET_SPECIALITY_INFO,
   SET_SPECIALITY_PEOPLE,
-  
+
   SET_NEW_SPECIALITIES,
   SET_NEW_SPECIALITY_INFO,
   SET_NEW_SPECIALITY_PEOPLE,
+
+  SET_APPLICANTS,
 } from './mutations.type';
 
 
 const scheduleService = `${process.env.VUE_APP_SCHEDULE_SERVICE}priem/specialities`;
 const scheduleService2 = `${process.env.VUE_APP_SCHEDULE_SERVICE}priem/newSpecialities`;
+const applicantsPath = `${process.env.VUE_APP_SCHEDULE_SERVICE}priem/applicants`;
 
 const state = {
   specialities: [],
   specialityInfo: [],
   specialityPeople: [],
-  
+
   newSpecialities: [],
   newSpecialityInfo: [],
   newSpecialityPeople: [],
+
+  applicants: [],
 };
 
 const getters = {
@@ -42,7 +49,7 @@ const getters = {
   specialityPeople(state) {
     return state.specialityPeople;
   },
-  
+
   newSpecialities(state) {
     return state.newSpecialities;
   },
@@ -51,6 +58,10 @@ const getters = {
   },
   newSpecialityPeople(state) {
     return state.newSpecialityPeople;
+  },
+
+  applicants(state) {
+    return state.applicants;
   },
 };
 
@@ -106,7 +117,7 @@ const actions = {
         });
     });
   },
-  
+
   [GET_NEW_SPECIALITIES](context) {
     return new Promise((resolve, reject) => {
       axios
@@ -157,6 +168,22 @@ const actions = {
         });
     });
   },
+
+  [GET_APPLICANTS](context) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`${applicantsPath}`)
+        .then(({
+          data
+        }) => {
+          context.commit(SET_APPLICANTS, data);
+          return resolve(data);
+        })
+        .catch(err => {
+          return reject(err);
+        });
+    });
+  },
 };
 
 const mutations = {
@@ -169,7 +196,7 @@ const mutations = {
   [SET_SPECIALITY_PEOPLE](state, data) {
     state.specialityPeople = data;
   },
-  
+
   [SET_NEW_SPECIALITIES](state, data) {
     state.newSpecialities = data;
   },
@@ -178,6 +205,10 @@ const mutations = {
   },
   [SET_NEW_SPECIALITY_PEOPLE](state, data) {
     state.newSpecialityPeople = data;
+  },
+
+  [SET_APPLICANTS](state, data) {
+    state.applicants = data;
   },
 };
 

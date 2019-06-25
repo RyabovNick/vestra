@@ -18,3 +18,5 @@ export const SET_SPECIALITY_PEOPLE = 'setSpecialityPeople';
 export const SET_NEW_SPECIALITIES = 'setNewSpecialities';
 export const SET_NEW_SPECIALITY_INFO = 'setNewSpecialityInfo';
 export const SET_NEW_SPECIALITY_PEOPLE = 'setNewSpecialityPeople';
+
+export const SET_APPLICANTS = 'setApplicants';

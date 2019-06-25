@@ -23,3 +23,5 @@ export const GET_SPECIALITY_PEOPLE = 'getSpecialityPeople';
 export const GET_NEW_SPECIALITIES = 'getNewSpecialities';
 export const GET_NEW_SPECIALITY_INFO = 'getNewSpecialityInfo';
 export const GET_NEW_SPECIALITY_PEOPLE = 'getNewSpecialityPeople';
+
+export const GET_APPLICANTS = 'getApplicants';
