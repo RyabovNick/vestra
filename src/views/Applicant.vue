@@ -81,11 +81,7 @@ export default {
   },
   mounted() {
     // TODO - error
-    this.getApplicantInfo({ id: this.$route.params.id })
-      .then(res => {
-        this.loading = false;
-      })
-      .catch(err => {});
+    this.getApplicantInfo({ id: this.$route.params.id });
   },
   methods: {
     ...mapActions({
