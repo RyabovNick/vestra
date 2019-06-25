@@ -13,6 +13,7 @@ import FindMyself from './views/FindMyself';
 import Specialities from './views/Specialities';
 import SpecialityPeople from './views/SpecialityPeople';
 import Applicant from './views/Applicant';
+import PersonalRating from './views/PersonalRating';
 import Development from './views/Development';
 import AuthService from './views/AuthService';
 import ScheduleService from './views/ScheduleService';
@@ -125,6 +126,14 @@ export const routes = [{
     path: '/abitur/search/info/:id',
     name: 'applicant',
     component: Applicant,
+    meta: {
+      authNotRequired: true
+    },
+  },
+  {
+    path: '/abitur/all/:code/:group/:id',
+    name: 'personalRating',
+    component: PersonalRating,
     meta: {
       authNotRequired: true
     },
