@@ -19,6 +19,7 @@
             :headers="headers"
             :items="specialities"
             :search="search"
+            :pagination.sync="pagination"
             rows-per-page-text="Записей на странице"
           >
             <template v-slot:items="props">
@@ -53,6 +54,9 @@ export default {
       search: '',
       // groupSchedule
       loading: false,
+      pagination: {
+        rowsPerPage: -1,
+      },
       headers: [
         {
           text: 'Название специальности',

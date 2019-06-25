@@ -6,26 +6,33 @@
       </v-flex>
     </v-layout>
     <v-layout v-else wrap justify-center>
-      <v-flex xs12 sm11 md9 lg5 offset-lg1 justify-center>
+      <v-flex xs12 sm11 md9 lg7 offset-lg1 justify-center>
         <v-card>
           <div class="no-data" v-if="applicantInfo.length === 0">Нет данных</div>
-          <v-data-table
-            v-else
-            :headers="headers"
-            :items="applicantInfo"
-            :pagination.sync="pagination"
-            rows-per-page-text="Записей на странице"
-          >
-            <template v-slot:items="props">
-              <tr v-bind:class="{ credited: props.item.credited === 'true' }">
-                <td>{{ props.item.fio }}</td>
-                <td>{{ props.item.sum }}</td>
-                <td>{{ props.item.konkursGroup }}</td>
-                <td>{{ props.item.indiv }}</td>
-                <td>{{ props.item.ege }}</td>
-              </tr>
-            </template>
-          </v-data-table>
+          <div v-else>
+            <v-toolbar dark color="primary">
+              <v-toolbar-title>{{ applicantInfo[0].fio }}</v-toolbar-title>
+            </v-toolbar>
+            <v-data-table
+              :headers="headers"
+              :items="applicantInfo"
+              :pagination.sync="pagination"
+              rows-per-page-text="Записей на странице"
+            >
+              <template v-slot:items="props">
+                <tr v-bind:class="{ credited: props.item.credited === 'true' }">
+                  <td>
+                    <router-link
+                      :to="{ name: 'currentYearPeople', params: {code: props.item.code} }"
+                    >{{ props.item.konkursGroup }}</router-link>
+                  </td>
+                  <td>{{ props.item.sum }}</td>
+                  <td>{{ props.item.indiv }}</td>
+                  <td>{{ props.item.ege }}</td>
+                </tr>
+              </template>
+            </v-data-table>
+          </div>
         </v-card>
       </v-flex>
     </v-layout>
@@ -47,22 +54,16 @@ export default {
       },
       headers: [
         {
-          text: 'ФИО',
+          text: 'Конкурсная группа',
           align: 'left',
-          sortable: false,
-          value: 'fio',
+          sortable: true,
+          value: 'konkursGroup',
         },
         {
           text: 'Сумма баллов',
           align: 'left',
           sortable: true,
           value: 'sum',
-        },
-        {
-          text: 'Конкурсная группа',
-          align: 'left',
-          sortable: true,
-          value: 'konkursGroup',
         },
         {
           text: 'Инд. достижения',
