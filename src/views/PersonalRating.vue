@@ -24,6 +24,7 @@
                   v-if="props.item.konkursGroup == $route.params.group"
                   v-bind:class="{ credited: props.item.credited === 'true', selected: props.item.id === $route.params.id}"
                 >
+                  <td>{{props.item.num}}</td>
                   <td>
                     <router-link
                       :to="{ name: 'applicant', params: {id: props.item.id} }"
@@ -60,6 +61,12 @@ export default {
         rowsPerPage: -1,
       },
       headers: [
+        {
+          text: '№',
+          align: 'left',
+          sortable: false,
+          value: 'num',
+        },
         {
           text: 'ФИО',
           align: 'left',

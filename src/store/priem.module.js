@@ -164,7 +164,7 @@ const actions = {
         .then(({
           data
         }) => {
-          context.commit(SET_NEW_SPECIALITY_PEOPLE, data);
+          context.commit(SET_NEW_SPECIALITY_PEOPLE, countIndexesIntoGroups(data));
           return resolve(data);
         })
         .catch(err => {
@@ -243,3 +243,24 @@ export default {
   actions,
   mutations,
 };
+
+function countIndexesIntoGroups(data) {
+  let groups = new Array();
+  for (let d of data) {
+    let flag = false;
+    for (let i = 0; i < groups.length; i++) {
+      if (d.konkursGroup === groups[i].name) {
+        flag = true;
+        d.num = ++(groups[i].index);
+      }
+    }
+    if (!flag) {
+      d.num = 1;
+      groups.push({
+        name: d.konkursGroup,
+        index: 1,
+      });
+    }
+  }
+  return data;
+}
