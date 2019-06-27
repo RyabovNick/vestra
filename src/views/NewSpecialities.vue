@@ -31,7 +31,11 @@
                 <router-link
                   class="spec-link"
                   :to="{ name: 'currentYearPeople', params: {code: props.item.code} }"
-                >{{ props.item.spec }} ({{ props.item.code}})</router-link>
+                >
+                  {{ props.item.spec }} ({{ props.item.code}})
+                  <b class="delimiter">/</b>
+                  Подано: {{ props.item.numberOfApplications }}
+                </router-link>
               </td>
             </template>
             <template v-slot:no-results>
@@ -99,6 +103,10 @@ export default {
   font-weight: bold;
   font-size: 1.4rem;
   color: #18224b;
+}
+.delimiter {
+  font-size: 1.6rem;
+  color: red;
 }
 </style>
 
