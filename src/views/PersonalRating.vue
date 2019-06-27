@@ -6,7 +6,10 @@
       </v-flex>
     </v-layout>
     <v-layout v-else wrap justify-center>
-      <v-flex xs12 sm11 md11 lg9 offset-lg1 justify-center>
+      <v-flex v-if="loading" xs12 sm8 md5 offset-md1 justify-center class="loading-container">
+        <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
+      </v-flex>
+      <v-flex v-else xs12 sm11 md11 lg9 offset-lg1 justify-center>
         <v-card>
           <v-toolbar dark color="primary">
             <v-toolbar-title>{{ this.$route.params.group }}</v-toolbar-title>
@@ -55,6 +58,7 @@ export default {
   data() {
     return {
       filter: '',
+      loading: true,
       pagination: {
         sortBy: 'sum',
         descending: true,
@@ -102,9 +106,11 @@ export default {
   },
   mounted() {
     // TODO - error
-    this.getNewSpecialityPeople({ code: this.$route.params.code }).then(
-      res => {},
-    );
+    this.getNewSpecialityPeople({ code: this.$route.params.code })
+      .then(res => {
+        this.loading = false;
+      })
+      .catch(err => {});
   },
   methods: {
     ...mapActions({
@@ -132,5 +138,12 @@ export default {
 }
 .selected td {
   background: rgba(24, 34, 75, 0.45);
+}
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin: 60px auto;
 }
 </style>

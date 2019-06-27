@@ -1,10 +1,10 @@
 <template>
   <v-container fluid fill-height>
     <v-layout wrap justify-center>
-      <v-flex v-if="loading" xs11 sm8 md5 offset-md1 justify-center>
+      <v-flex v-if="loading" xs12 sm8 md5 offset-md1 justify-center class="loading-container">
         <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
       </v-flex>
-      <v-flex xs11 justify-center>
+      <v-flex v-else xs11 justify-center>
         <v-card>
           <v-card-title>
             <v-text-field
@@ -53,7 +53,7 @@ export default {
       loadingCheck: false,
       search: '',
       // groupSchedule
-      loading: false,
+      loading: true,
       pagination: {
         rowsPerPage: -1,
       },
@@ -68,7 +68,11 @@ export default {
     };
   },
   mounted() {
-    this.getSpecialities().then(res => {});
+    this.getSpecialities()
+      .then(res => {
+        this.loading = false;
+      })
+      .catch(err => {});
     // TODO - error
   },
   methods: {
@@ -88,6 +92,13 @@ export default {
 .spec-link {
   font-size: 1.6em;
   text-decoration: none;
+}
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin: 60px auto;
 }
 </style>
 

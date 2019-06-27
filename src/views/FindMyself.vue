@@ -6,10 +6,10 @@
       </v-flex>
     </v-layout>
     <v-layout v-else wrap justify-center>
-      <v-flex v-if="loading" xs11 sm8 md5 offset-md1 justify-center>
+      <v-flex v-if="loading" xs11 sm8 md5 offset-md1 justify-center class="loading-container">
         <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
       </v-flex>
-      <v-flex xs11 justify-center>
+      <v-flex v-else xs11 justify-center>
         <v-card>
           <v-card-title>
             <v-text-field
@@ -56,7 +56,7 @@ export default {
     return {
       loadingCheck: false,
       search: '',
-      loading: false,
+      loading: true,
       headers: [
         {
           text: 'ФИО',
@@ -68,7 +68,11 @@ export default {
     };
   },
   mounted() {
-    this.getApplicants().then(res => {});
+    this.getApplicants()
+      .then(res => {
+        this.loading = false;
+      })
+      .catch(err => {});
     // TODO - error
   },
   methods: {
@@ -95,6 +99,13 @@ export default {
   font-weight: bold;
   font-size: 1.4rem;
   color: #18224b;
+}
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin: 60px auto;
 }
 </style>
 

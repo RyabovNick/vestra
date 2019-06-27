@@ -6,7 +6,10 @@
       </v-flex>
     </v-layout>
     <v-layout v-else wrap justify-center>
-      <v-flex xs12 sm11 md9 lg7 offset-lg1 justify-center>
+      <v-flex v-if="loading" xs11 sm8 md5 offset-md1 justify-center class="loading-container">
+        <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
+      </v-flex>
+      <v-flex v-else xs12 sm11 md9 lg7 offset-lg1 justify-center>
         <v-card>
           <div class="no-data" v-if="applicantInfo.length === 0">Нет данных</div>
           <div v-else>
@@ -82,7 +85,11 @@ export default {
   },
   mounted() {
     // TODO - error
-    this.getApplicantInfo({ id: this.$route.params.id }).then(res => {});
+    this.getApplicantInfo({ id: this.$route.params.id })
+      .then(res => {
+        this.loading = false;
+      })
+      .catch(err => {});
   },
   methods: {
     ...mapActions({
@@ -107,5 +114,13 @@ export default {
 }
 .credited td {
   background: rgba(0, 220, 0, 0.74);
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin: 60px auto;
 }
 </style>

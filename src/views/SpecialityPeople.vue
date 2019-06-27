@@ -1,7 +1,7 @@
 <template>
   <v-container fluid fill-height>
     <v-layout wrap justify-center>
-      <v-flex v-if="loading" xs11 sm8 md5 offset-md1 justify-center>
+      <v-flex v-if="loading" xs12 sm8 md5 offset-md1 justify-center class="loading-container">
         <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
       </v-flex>
       <v-flex v-else xs12 sm11 md7 lg5>
@@ -44,7 +44,10 @@
         </v-card>
       </v-flex>
       <v-flex xs12 sm11 md9 lg5 offset-lg1 justify-center>
-        <v-card>
+        <v-flex v-if="loading2" xs12 sm8 md5 offset-md1 justify-center class="loading-container">
+          <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
+        </v-flex>
+        <v-card v-else>
           <div class="no-data" v-if="specialityPeople.length === 0">Нет данных</div>
           <v-data-table
             v-else
@@ -76,6 +79,7 @@ export default {
   data() {
     return {
       loading: true,
+      loading2: true,
       filter: '',
       pagination: {
         sortBy: 'sum',
@@ -125,7 +129,7 @@ export default {
         this.getSpecialityPeople({
           code: this.$route.params.code,
         }).then(res => {
-          this.loading = false;
+          this.loading2 = false;
         });
       })
       .catch(err => {});
@@ -168,5 +172,12 @@ export default {
 }
 .elevation-12.active {
   background-color: #d5d5d5;
+}
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin: 60px auto;
 }
 </style>
