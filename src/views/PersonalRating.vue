@@ -41,6 +41,7 @@
                   </td>
                   <td>{{ props.item.indiv }}</td>
                   <td>{{ props.item.ege }}</td>
+                  <td>{{ props.item.documentType }}</td>
                 </tr>
               </template>
             </v-data-table>
@@ -100,6 +101,12 @@ export default {
           align: 'left',
           sortable: true,
           value: 'ege',
+        },
+        {
+          text: 'Вид документа',
+          align: 'left',
+          sortable: true,
+          value: 'documentType',
         },
       ],
     };

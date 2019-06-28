@@ -35,6 +35,10 @@
                   {{ props.item.spec }} ({{ props.item.code}})
                   <b class="delimiter">/</b>
                   Подано: {{ props.item.numberOfApplications }}
+                  <b
+                    class="delimiter"
+                  >/</b>
+                  Оригиналы: {{ props.item.numberOfOriginals }}
                 </router-link>
               </td>
             </template>
@@ -111,6 +115,7 @@ export default {
 .delimiter {
   font-size: 1.6rem;
   color: red;
+  margin: 0 5px;
 }
 .loading-container {
   display: flex;
