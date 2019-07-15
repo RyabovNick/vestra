@@ -27,7 +27,7 @@
                 <router-link
                   class="spec-link"
                   :to="{ name: 'lastYearPeople', params: {code: props.item.code} }"
-                >{{ props.item.spec }} ({{ props.item.code}})</router-link>
+                >{{ props.item.spec }} ({{ props.item.code}}) {{ props.item.numberOfApplications }} всего / {{ props.item.numberOfOriginals }} оригиналов</router-link>
               </td>
             </template>
             <template v-slot:no-results>

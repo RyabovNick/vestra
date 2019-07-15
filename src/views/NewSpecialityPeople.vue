@@ -50,6 +50,14 @@
             <b>Количество мест:</b>
             {{item.places}}
           </v-card-text>
+          <v-card-text>
+            <b>Всего подано:</b>
+            {{item.all}}
+          </v-card-text>
+          <v-card-text>
+            <b>Оригиналы:</b>
+            {{item.orig}}
+          </v-card-text>
         </v-card>
       </v-flex>
       <v-flex xs12 sm11 md9 lg5 offset-lg1 justify-center>
