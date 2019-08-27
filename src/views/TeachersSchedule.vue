@@ -6,6 +6,8 @@
       </v-flex>
       <v-flex xs11 justify-center>
         <v-card>
+
+
           <v-card-title>
             <v-text-field
               v-model="search"
