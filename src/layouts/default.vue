@@ -124,7 +124,7 @@ export default {
         },
         {
           icon: 'grade',
-          text: 'Оценки',
+          text: 'Посещаемость',
           link: '/marks',
           access: true,
         },
@@ -232,6 +232,12 @@ export default {
       this.items[1].access = newV;
 
       if (this.isAuthenticated && this.user.role !== 'Students') {
+        this.items[3].access = true;
+      } else {
+        this.items[3].access = false;
+      }
+
+      if (this.isAuthenticated && this.user.role === 'Students') {
         this.items[2].access = true;
       } else {
         this.items[2].access = false;

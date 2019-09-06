@@ -12,9 +12,7 @@
           <v-toolbar dark color="primary">
             <v-toolbar-title>Информация о преподавателе</v-toolbar-title>
           </v-toolbar>
-          <v-card-text
-            v-if="teacherInfo[0].fio !== null"
-          >ФИО: {{ teacherInfo[0].fio }}</v-card-text>
+          <v-card-text v-if="teacherInfo[0].fio !== null">ФИО: {{ teacherInfo[0].fio }}</v-card-text>
           <v-card-text
             v-if="teacherInfo[0].degree !== null"
           >Ученая степень: {{ teacherInfo[0].degree }}</v-card-text>
@@ -53,7 +51,7 @@ export default {
   data() {
     return {
       loading: true,
-      teacherNotFound: false // check error
+      teacherNotFound: false, // check error
     };
   },
   mounted() {
@@ -64,13 +62,9 @@ export default {
       })
       .catch(err => {
         if (err.message == 404) {
-          // надо, допустим
-          // в переменную записать true
-          // переменная teacherNotFound
-          // v-if=teacherNotFound вывести какое-то сообщение 
-          console.log(err)
-          this.loading = false
-          this.teacherNotFound = true
+          console.log(err);
+          this.loading = false;
+          this.teacherNotFound = true;
         }
       });
 
