@@ -30,10 +30,7 @@
                 <v-list-tile-title>{{ item.text }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile
-              v-for="(child, i) in prepareChild(item.children)"
-              :key="i"
-            >
+            <v-list-tile v-for="(child, i) in prepareChild(item.children)" :key="i">
               <router-link class="v-list__tile" :to="child.link">
                 <v-list-tile-action v-if="child.icon">
                   <v-icon>{{ child.icon }}</v-icon>
@@ -44,10 +41,7 @@
               </router-link>
             </v-list-tile>
           </v-list-group>
-          <v-list-tile
-            v-else-if="!item.children && item.access"
-            :key="item.text"
-          >
+          <v-list-tile v-else-if="!item.children && item.access" :key="item.text">
             <router-link class="v-list__tile" :to="item.link">
               <v-list-tile-action>
                 <v-icon>{{ item.icon }}</v-icon>
@@ -70,13 +64,7 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar
-      :clipped-left="$vuetify.breakpoint.lgAndUp"
-      color="primary"
-      dark
-      app
-      fixed
-    >
+    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" color="primary" dark app fixed>
       <v-toolbar-title class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <v-btn icon large @click="$router.go(-1)">
@@ -95,12 +83,7 @@
           </div>
         </router-link>
       </div>
-      <div
-        v-else
-        v-for="(item, index) in toolbar"
-        :key="index"
-        class="toolbar__items"
-      >
+      <div v-else v-for="(item, index) in toolbar" :key="index" class="toolbar__items">
         <router-link class="btn btn--flat btn--router" :to="item.link">
           <div class="btn__content">
             <span class="hidden-sm-and-down">{{ item.text }}</span>
@@ -138,6 +121,12 @@ export default {
           text: 'Личный кабинет',
           link: '/personal',
           access: false,
+        },
+        {
+          icon: 'grade',
+          text: 'Посещаемость',
+          link: '/marks',
+          access: true,
         },
         {
           icon: 'message',
@@ -243,6 +232,12 @@ export default {
       this.items[1].access = newV;
 
       if (this.isAuthenticated && this.user.role !== 'Students') {
+        this.items[3].access = true;
+      } else {
+        this.items[3].access = false;
+      }
+
+      if (this.isAuthenticated && this.user.role === 'Students') {
         this.items[2].access = true;
       } else {
         this.items[2].access = false;

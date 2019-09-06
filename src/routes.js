@@ -1,6 +1,7 @@
 import Home from './views/Home';
 import Login from './views/Login';
 import Personal from './views/Personal';
+import Marks from './views/Marks';
 import Push from './views/Push';
 import Schedule from './views/Schedule';
 import MySchedule from './views/MySchedule';
@@ -18,9 +19,10 @@ import Development from './views/Development';
 import AuthService from './views/AuthService';
 import ScheduleService from './views/ScheduleService';
 import PushService from './views/PushService';
+import Students from './views/Students';
+import Success from './views/success';
 
-export const routes = [
-  {
+export const routes = [{
     path: '/index.html',
     component: Home,
     alias: '/',
@@ -50,13 +52,19 @@ export const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+    component: () => import( /* webpackChunkName: "about" */ './views/About.vue'),
   },
   {
     path: '/personal',
     name: 'personal',
     component: Personal,
   },
+  {
+    path: '/marks',
+    name: 'marks',
+    component: Marks,
+  },
+  
   {
     path: '/push',
     name: 'push',
@@ -178,6 +186,16 @@ export const routes = [
     name: 'pushService',
     component: PushService,
   },
+  {
+    path: '/students',
+    name: 'students',
+    component: Students,
+  },
+  {
+    path: '/success',
+    name: 'success',
+    component: Success,
+  }
 ];
 
 export default routes;

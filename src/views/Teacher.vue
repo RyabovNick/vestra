@@ -4,12 +4,17 @@
       <v-flex v-if="loading" xs11 sm8 md5 offset-md1 justify-center>
         <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
       </v-flex>
+      <v-flex v-else-if="teacherNotFound" xs11 sm8 md5 offset-md1 justify-center>
+        <p>Ошибка</p>
+      </v-flex>
       <v-flex v-else xs12 sm8 md4>
         <v-card class="elevation-12 teacher-info">
           <v-toolbar dark color="primary">
             <v-toolbar-title>Информация о преподавателе</v-toolbar-title>
           </v-toolbar>
-          <v-card-text>ФИО: {{ teacherInfo[0].fio }}</v-card-text>
+          <v-card-text
+            v-if="teacherInfo[0].fio !== null"
+          >ФИО: {{ teacherInfo[0].fio }}</v-card-text>
           <v-card-text
             v-if="teacherInfo[0].degree !== null"
           >Ученая степень: {{ teacherInfo[0].degree }}</v-card-text>
@@ -48,6 +53,7 @@ export default {
   data() {
     return {
       loading: true,
+      teacherNotFound: false // check error
     };
   },
   mounted() {
@@ -56,7 +62,17 @@ export default {
       .then(res => {
         this.loading = false;
       })
-      .catch(err => {});
+      .catch(err => {
+        if (err.message == 404) {
+          // надо, допустим
+          // в переменную записать true
+          // переменная teacherNotFound
+          // v-if=teacherNotFound вывести какое-то сообщение 
+          console.log(err)
+          this.loading = false
+          this.teacherNotFound = true
+        }
+      });
 
     this.getMySchedule({
       name: this.$route.params.fio,

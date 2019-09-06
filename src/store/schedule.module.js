@@ -124,6 +124,11 @@ const actions = {
       axios
         .get(`${scheduleService}info/teacher/${fio}`)
         .then(({ data }) => {
+
+          if (data.length === 0) {
+            reject(new Error(404))
+          }
+
           context.commit(SET_TEACHER_INFO, data);
           return resolve(data);
         })
