@@ -5,7 +5,48 @@
         <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
       </v-flex>
       <v-flex v-else-if="teacherNotFound" xs11 sm8 md5 offset-md1 justify-center>
-        <p>Ошибка</p>
+        <ul class="list-group">
+          <li>
+            <router-link to="/students">СиФ сложных сетей</router-link>
+            <span class="badge">Лекция</span>
+          </li>
+          <li>
+            <router-link to="/students">СиФ сложных сетей</router-link>
+            <span class="badge1">Семинар</span>
+          </li>
+          <li>
+            <router-link to="/students">ПРВ</router-link>
+            <span class="badge">Семинар</span>
+          </li>
+          <li>
+            <router-link to="/students">ПИ</router-link>
+            <span class="badge">Семинар</span>
+          </li>
+          <li>
+            <router-link to="/students">Параллельные и распределенные вычисления</router-link>
+            <span class="badge">Лекция</span>
+          </li>
+          <li>
+            <router-link to="/students">СБ</router-link>
+            <span class="badge1">Семинар</span>
+          </li>
+          <li>
+            <router-link to="/students">ПТ ПИПП</router-link>
+            <span class="badge">Семинар</span>
+          </li>
+          <li>
+            <router-link to="/students">Разработка прил.</router-link>
+            <span class="badge">Семинар</span>
+          </li>
+          <li>
+            <router-link to="/students">ТЯПМТ</router-link>
+            <span class="badge">Семинар</span>
+          </li>
+          <li>
+            <router-link to="/students">СИИ</router-link>
+            <span class="badge">Семинар</span>
+          </li>
+        </ul>
       </v-flex>
       <v-flex v-else xs12 sm8 md4>
         <v-card class="elevation-12 teacher-info">
@@ -25,6 +66,7 @@
           >Должность: {{ teacherInfo[0].position }}</v-card-text>
         </v-card>
       </v-flex>
+      <!--
       <v-flex
         v-if="mySchedule[0] !== undefined && !loading"
         xs11
@@ -33,9 +75,10 @@
         offset-md1
         justify-space-between
       >
-        <!-- TODO: отображать дни, когда занятий нет -->
+        
         <schedule :schedule="mySchedule"></schedule>
       </v-flex>
+      -->
     </v-layout>
   </v-container>
 </template>
@@ -111,5 +154,51 @@ img {
 
 .teacher-info {
   margin-bottom: 1em;
+}
+.list-group {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  border: 1px solid #efefef;
+  border-radius: 0.5em;
+  width: 100%;
+  color: #333;
+  font-weight: 600;
+  box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+}
+.list-group li {
+  border-top: 1px solid #cccccc7a;
+  padding: 1.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1em;
+}
+.list-group li:first-child {
+  border-top: 0;
+}
+.list-group .badge {
+  background-color: #333b99;
+  color: #fff;
+  font-weight: bold;
+  font-size: 95%;
+  border-radius: 10em;
+  min-width: 6.5em;
+  padding: 0.25em;
+  text-align: center;
+}
+.list-group .badge1 {
+  background-color: green;
+  color: #fff;
+  font-weight: bold;
+  font-size: 95%;
+  border-radius: 10em;
+  min-width: 6.5em;
+  padding: 0.25em;
+  text-align: center;
+}
+a {
+  text-decoration: none;
 }
 </style>

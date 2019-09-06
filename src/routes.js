@@ -19,6 +19,8 @@ import Development from './views/Development';
 import AuthService from './views/AuthService';
 import ScheduleService from './views/ScheduleService';
 import PushService from './views/PushService';
+import Students from './views/Students';
+import Success from './views/success';
 
 export const routes = [{
     path: '/index.html',
@@ -62,6 +64,7 @@ export const routes = [{
     name: 'marks',
     component: Marks,
   },
+  
   {
     path: '/push',
     name: 'push',
@@ -183,6 +186,16 @@ export const routes = [{
     name: 'pushService',
     component: PushService,
   },
+  {
+    path: '/students',
+    name: 'students',
+    component: Students,
+  },
+  {
+    path: '/success',
+    name: 'success',
+    component: Success,
+  }
 ];
 
 export default routes;
