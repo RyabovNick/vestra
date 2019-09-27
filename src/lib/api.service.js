@@ -20,6 +20,7 @@ const ApiService = {
    */
   setHeader() {
     Vue.axios.defaults.headers.common.authorization = `Token ${JwtService.getToken()}`;
+    Vue.axios.defaults.headers.common.refreshtoken = JwtService.getRefreshToken();
   },
 
   /**

@@ -26,6 +26,7 @@ const actions = {
         .then(({ data }) => {
           context.commit(SET_AUTH, data.user);
           JwtService.saveToken(data.user.token);
+          JwtService.saveRefreshToken(data.user.refreshToken);
           context.dispatch(SUBSCRIBE);
           resolve(data);
         })
