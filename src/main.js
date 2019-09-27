@@ -54,7 +54,6 @@ router.beforeEach((to, from, next) => {
       }
     })
     .catch(() => {
-      console.log('false1');
       if (authRequired) {
         next('/login');
       } else {

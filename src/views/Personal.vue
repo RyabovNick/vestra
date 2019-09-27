@@ -50,7 +50,7 @@ export default {
       },
       {
         name: 'Группа',
-        value: 'caf',
+        value: 'group',
       },
     ],
   }),
@@ -59,7 +59,7 @@ export default {
     this.getMySchedule({
       name: this.user.fio,
       role: this.user.role,
-      group: this.user.caf,
+      group: this.user.group,
     }).then(res => {
       this.loading = false;
     });
@@ -77,6 +77,8 @@ export default {
     }),
   },
 };
+
+//console.log('userFields: ', userFields);
 </script>
 
 <style>
