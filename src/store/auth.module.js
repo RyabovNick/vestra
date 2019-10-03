@@ -52,16 +52,12 @@ const actions = {
         });
     });
   },
-  [LOGOUT_ALL](context, {
-    token,
-  }) {
+  [LOGOUT_ALL](context) {
     return new Promise((resolve, reject) => {
-      ApiService.get('logout', {
-          token
-        })
-        .then(({
-          data
-        }) => {
+      ApiService.get('logout')
+        .then(() => {
+          context.commit(PURGE_AUTH)
+          resolve()
         })
         .catch(error => {
           reject(error);

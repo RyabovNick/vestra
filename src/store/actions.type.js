@@ -2,6 +2,7 @@
 export const CHECK_AUTH = 'checkAuth';
 export const LOGIN = 'login';
 export const LOGOUT = 'logout';
+export const LOGOUT_ALL = 'logoutAll';
 export const SUBSCRIBE = 'subscribe';
 
 // user.module.js

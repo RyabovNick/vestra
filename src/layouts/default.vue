@@ -74,7 +74,7 @@
                       text
                       @click="logout(), dialog=false"
                     >С этого устройства</v-btn>
-                    <v-btn color="primaryprimary" text @click="dialog = false">Со всех устройств</v-btn>
+                    <v-btn color="primaryprimary" text @click="logout_all(), dialog = false">Со всех устройств</v-btn>
                     <v-btn color="primary" text @click="dialog = false" justify="end">Отмена</v-btn>
                   </v-card-actions>
                 </v-card>
