@@ -53,6 +53,40 @@
           </v-list-tile>
         </template>
         <template>
+          <v-list-tile v-if="isAuthenticated" @click.stop="dialog = true">
+            <v-list-tile-action>
+              <v-icon>exit_to_app</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Выход</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+
+          <v-layout wrap>
+            <v-flex xs12 md6>
+              <v-dialog v-model="dialog" class="xs12 sm8 md4">
+                <v-card>
+                  <v-card-title class="headline">Вы уверены, что хотите выйти?</v-card-title>
+                  <v-card-text>Вы так же можете выйти со всех устройств.</v-card-text>
+                  <v-card-actions>
+                    <v-btn
+                      color="primaryprimary"
+                      text
+                      @click="logout(), dialog=false"
+                    >С этого устройства</v-btn>
+                    <v-btn
+                      color="primaryprimary"
+                      text
+                      @click="logout_all(), dialog = false"
+                    >Со всех устройств</v-btn>
+                    <v-btn color="primary" text @click="dialog = false" justify="end">Отмена</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-flex>
+          </v-layout>
+
+          <!--
           <v-list-tile v-if="isAuthenticated" @click="logout()">
             <v-list-tile-action>
               <v-icon>exit_to_app</v-icon>
@@ -61,6 +95,7 @@
               <v-list-tile-title>Выход</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
+          -->
         </template>
       </v-list>
     </v-navigation-drawer>
@@ -107,7 +142,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-
+//debugger;
 export default {
   data: function() {
     return {
@@ -125,8 +160,8 @@ export default {
         {
           icon: 'grade',
           text: 'Посещаемость',
-          link: '/marks',
-          access: true,
+          link: '/students',
+          access: false,
         },
         {
           icon: 'message',
@@ -213,9 +248,15 @@ export default {
   methods: {
     ...mapActions({
       userLogout: 'auth/logout',
+      userLogoutAll: 'auth/logoutAll',
     }),
     logout() {
       this.userLogout().then(() => {
+        this.$router.push({ name: 'login' });
+      });
+    },
+    logout_all() {
+      this.userLogoutAll().then(() => {
         this.$router.push({ name: 'login' });
       });
     },
@@ -237,7 +278,7 @@ export default {
         this.items[3].access = false;
       }
 
-      if (this.isAuthenticated && this.user.role === 'Students') {
+      if (this.isAuthenticated && this.user.role === 'Leader') {
         this.items[2].access = true;
       } else {
         this.items[2].access = false;

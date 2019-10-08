@@ -2,6 +2,7 @@
 export const CHECK_AUTH = 'checkAuth';
 export const LOGIN = 'login';
 export const LOGOUT = 'logout';
+export const LOGOUT_ALL = 'logoutAll';
 export const SUBSCRIBE = 'subscribe';
 
 // user.module.js
@@ -26,3 +27,6 @@ export const GET_NEW_SPECIALITY_PEOPLE = 'getNewSpecialityPeople';
 
 export const GET_APPLICANTS = 'getApplicants';
 export const GET_APPLICANT_INFO = 'getApplicantInfo';
+
+// mark.module.js
+export const GET_CLASSMATES = 'getClassmates';

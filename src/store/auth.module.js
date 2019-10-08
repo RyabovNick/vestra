@@ -1,7 +1,16 @@
 import ApiService from '@/lib/api.service';
 import JwtService from '@/lib/jwt.service';
-import { LOGIN, LOGOUT, CHECK_AUTH, SUBSCRIBE } from './actions.type';
-import { SET_AUTH, PURGE_AUTH } from './mutations.type';
+import {
+  LOGIN,
+  LOGOUT,
+  CHECK_AUTH,
+  SUBSCRIBE,
+  LOGOUT_ALL
+} from './actions.type';
+import {
+  SET_AUTH,
+  PURGE_AUTH
+} from './mutations.type';
 import axios from 'axios';
 
 const state = {
@@ -20,14 +29,35 @@ const getters = {
 };
 
 const actions = {
-  [LOGIN](context, { username, password }) {
+  [LOGIN](context, {
+    username,
+    password
+  }) {
     return new Promise((resolve, reject) => {
-      ApiService.post('login', { username, password })
-        .then(({ data }) => {
+      ApiService.post('login', {
+          username,
+          password
+        })
+        .then(({
+          data
+        }) => {
           context.commit(SET_AUTH, data.user);
           JwtService.saveToken(data.user.token);
+          JwtService.saveRefreshToken(data.user.refreshToken);
           context.dispatch(SUBSCRIBE);
           resolve(data);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  },
+  [LOGOUT_ALL](context) {
+    return new Promise((resolve, reject) => {
+      ApiService.get('logout')
+        .then(() => {
+          context.commit(PURGE_AUTH)
+          resolve()
         })
         .catch(error => {
           reject(error);
