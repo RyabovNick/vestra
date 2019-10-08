@@ -1,74 +1,24 @@
 <template>
   <div class="about">
-<!-- <v-date-picker
+    <!-- <v-date-picker
   mode='range'
   v-model='selectedDate'
   show-caps>
-</v-date-picker> -->
+    </v-date-picker>-->
     <section>
-      <h1>Список студентов группы 4221</h1>
-      <input id="one" type="checkbox">
-      <label for="one">
-        <span></span>
-       Точенова Алена Витальевна
-        <ins>
-          <i>Точенова Алена Витальевна</i>
-        </ins>
-      </label>
+      <h1>Список студентов</h1>
 
-      <input id="two" type="checkbox">
-      <label for="two">
-        <span></span>
-        Рзаев Николай Романович
-        <ins>
-          <i>Рзаев Николай Романович</i>
-        </ins>
-      </label>
+      <div v-for="item in people.peoples" :key="item.oneCcode">
+        <input :id="item.oneCcode" type="checkbox" v-model="item.mark" />
+        <label :for="item.oneCcode">
+          <span></span>
+          {{item.Fio}}
+        </label>
+      </div>
 
-      <input id="three" type="checkbox">
-      <label for="three">
-        <span></span>
-        Тепляшина Дарья Сергеевна
-        <ins>
-          <i>Тепляшина Дарья Сергеевна</i>
-        </ins>
-      </label>
-
-      <input id="four" type="checkbox">
-      <label for="four">
-        <span></span>
-        Игнатьева Екатерина Владимировна
-        <ins>
-          <i>Игнатьева Екатерина Владимировна</i>
-        </ins>
-      </label>
-      
-      <input id="four3" type="checkbox">
-      <label for="four3">
-        <span></span>
-       Артюшов Андрей Геннадьевич
-        <ins>
-          <i>Артюшов Андрей Геннадьевич</i>
-        </ins>
-      </label>
-       <input id="four2" type="checkbox">
-      <label for="four2">
-        <span></span>
-        Горбулина Виктория Сергеевна
-        <ins>
-          <i>Горбулина Виктория Сергеевна</i>
-        </ins>
-      </label>
-          <input id="four1" type="checkbox">
-      <label for="four1">
-        <span></span>
-        Зайцев Александр Алексеевич
-        <ins>
-          <i>Зайцев Александр Алексеевич</i>
-        </ins>
-      </label>
       <router-link to="/success">
-      <button class="button button1"  >Сохранить</button></router-link>
+        <button class="button button1" v-on:click="save">Сохранить</button>
+      </router-link>
     </section>
 
     <!-- <div id="datepicker"></div> -->
@@ -101,7 +51,6 @@
   justify-content: center;
   align-items: center;
   font: 24px/1.4 'RobotoDraft', sans-serif;
-
 }
 
 section {
@@ -222,11 +171,67 @@ input[type='checkbox']:checked + label > span:before {
 }
 </style>
 <script>
+import { mapGetters } from 'vuex';
+import axios from 'axios';
+
+const marksService = process.env.VUE_APP_MARKS_SERVICE;
 export default {
+  methods: {
+    allPeoples: function(group) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${marksService}attendance/getClassmates/${group}`)
+          .then(({ data }) => {
+            console.log('data: ', data);
+            return data;
+          })
+          .catch(err => {
+            return reject(err);
+          });
+      });
+    },
+  },
+
   data() {
     return {
       date: new Date(),
+      people: [],
     };
+  },
+  mounted() {
+    this.allPeoples(this.user.group);
+  },
+  methods: {
+    allPeoples: function(group) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`${marksService}attendance/getClassmates/${group}`)
+          .then(({ data }) => {
+            console.log('data: ', data);
+            console.log('user: ', this.user);
+            this.people = data;
+          })
+          .catch(err => {
+            return reject(err);
+          });
+      });
+    },
+    save: function() {
+      //return new Promise((resolve, reject) => {
+      axios
+        .post(`${marksService}attendance/add`, {
+          people,
+        })
+        .catch(err => {
+          return reject(err);
+        });
+      //});
+    },
+  },
+  computed: {
+    ...mapGetters({
+      user: 'auth/currentUser',
+    }),
   },
 };
 </script>

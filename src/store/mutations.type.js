@@ -21,3 +21,6 @@ export const SET_NEW_SPECIALITY_PEOPLE = 'setNewSpecialityPeople';
 
 export const SET_APPLICANTS = 'setApplicants';
 export const SET_APPLICANT_INFO = 'setApplicantInfo';
+
+// mark.module.js
+export const SET_ATTENDANCE = 'add';

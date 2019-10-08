@@ -74,7 +74,11 @@
                       text
                       @click="logout(), dialog=false"
                     >С этого устройства</v-btn>
-                    <v-btn color="primaryprimary" text @click="logout_all(), dialog = false">Со всех устройств</v-btn>
+                    <v-btn
+                      color="primaryprimary"
+                      text
+                      @click="logout_all(), dialog = false"
+                    >Со всех устройств</v-btn>
                     <v-btn color="primary" text @click="dialog = false" justify="end">Отмена</v-btn>
                   </v-card-actions>
                 </v-card>
@@ -156,8 +160,8 @@ export default {
         {
           icon: 'grade',
           text: 'Посещаемость',
-          link: '/marks',
-          access: true,
+          link: '/students',
+          access: false,
         },
         {
           icon: 'message',
@@ -274,7 +278,7 @@ export default {
         this.items[3].access = false;
       }
 
-      if (this.isAuthenticated && this.user.role === 'Students') {
+      if (this.isAuthenticated && this.user.role === 'Leader') {
         this.items[2].access = true;
       } else {
         this.items[2].access = false;
