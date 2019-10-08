@@ -174,7 +174,7 @@ input[type='checkbox']:checked + label > span:before {
 import { mapGetters } from 'vuex';
 import axios from 'axios';
 
-const marksService = process.env.VUE_APP_MARKS_SERVICE;
+const marksService = 'https://10.200.0.13:8451/api/';
 export default {
   methods: {
     allPeoples: function(group) {
