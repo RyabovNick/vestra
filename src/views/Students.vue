@@ -16,9 +16,9 @@
         </label>
       </div>
 
-      <router-link to="/success">
-        <button class="button button1" v-on:click="save">Сохранить</button>
-      </router-link>
+      <!-- <router-link to="/success"> -->
+      <button class="button button1" v-on:click="save">Сохранить</button>
+      <!-- </router-link> -->
     </section>
 
     <!-- <div id="datepicker"></div> -->
@@ -196,6 +196,7 @@ export default {
     return {
       date: new Date(),
       people: [],
+      id_lesson: null,
     };
   },
   mounted() {
@@ -208,8 +209,8 @@ export default {
           .get(`${marksService}attendance/getClassmates/${group}`)
           .then(({ data }) => {
             console.log('data: ', data);
-            console.log('user: ', this.user);
             this.people = data;
+            this.id_lesson = data.id_lesson;
           })
           .catch(err => {
             return reject(err);
@@ -217,10 +218,12 @@ export default {
       });
     },
     save: function() {
+      console.log('save called');
       //return new Promise((resolve, reject) => {
       axios
         .post(`${marksService}attendance/add`, {
-          people,
+          peoples: this.people.peoples,
+          id_lesson: this.id_lesson,
         })
         .catch(err => {
           return reject(err);
