@@ -3,7 +3,7 @@ name: default
 
 steps:
   - name: test
-    image: node:10-alpine
+    image: node:12-alpine
     commands:
       - npm install
       - npm run build
@@ -28,6 +28,8 @@ steps:
         from_secret: VUE_APP_messagingSenderId
       VUE_APP_publicVapidKey:
         from_secret: VUE_APP_publicVapidKey
+      VUE_APP_MARKS_SERVICE:
+        from_secret: VUE_APP_MARKS_SERVICE
       PORT: 3000
     when:
       branch:
