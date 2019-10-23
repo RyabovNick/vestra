@@ -17,14 +17,71 @@
       </div>
 
       <!-- <router-link to="/success"> -->
-      <button class="button button1" v-on:click="save">Сохранить</button>
+
+      <div class="text-center">
+        <v-dialog v-model="dialog" width="500">
+          <template v-slot:activator="{ on }">
+            <div class="text-xs-center">
+              <v-btn color="success" dark v-on:click="save" v-on="on" large>Сохранить</v-btn>
+            </div>
+          </template>
+
+          <v-card>
+            <v-card-title class="headline grey lighten-2" primary-title>Privacy Policy</v-card-title>
+            <v-card-text>Данные успешно сохранены</v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" text @click="dialog = false">ОК</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </div>
+
       <!-- </router-link> -->
     </section>
 
     <!-- <div id="datepicker"></div> -->
   </div>
 </template>
+
 <style>
+@media (max-width: 500px) {
+  input[type='checkbox']:checked + label > span:before {
+    content: '';
+    position: absolute;
+    top: 0.7em !important;
+    left: 0.2em;
+    border-right: 2px solid transparent !important;
+    border-bottom: 2px solid transparent !important;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform-origin: 0% 100%;
+    transform-origin: 0% 100%;
+    -webkit-animation: checkbox-check 125ms 250ms cubic-bezier(0.4, 0, 0.23, 1)
+      forwards;
+    animation: checkbox-check 125ms 250ms cubic-bezier(0.4, 0, 0.23, 1) forwards;
+    font-size: 18px;
+  }
+  label {
+    font-size: 0.7em;
+  }
+}
+.btn_green {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  width: 100%;
+}
 .button {
   background-color: #4caf50;
   border: none;
@@ -130,8 +187,8 @@ input[type='checkbox']:checked + label > span {
 input[type='checkbox']:checked + label > span:before {
   content: '';
   position: absolute;
-  top: 0.6em;
-  left: 0.2em;
+  top: 0.71em;
+  left: 0.23em;
   border-right: 3px solid transparent;
   border-bottom: 3px solid transparent;
   transform: rotate(45deg);
@@ -197,6 +254,7 @@ export default {
       date: new Date(),
       people: [],
       id_lesson: null,
+      dialog: false,
     };
   },
   mounted() {
