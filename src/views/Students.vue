@@ -27,7 +27,7 @@
           </template>
 
           <v-card>
-            <v-card-title class="headline grey lighten-2" primary-title>Privacy Policy</v-card-title>
+            <v-card-title class="headline grey lighten-2" primary-title>Сообщение системы</v-card-title>
             <v-card-text>Данные успешно сохранены</v-card-text>
             <v-divider></v-divider>
             <v-card-actions>
