@@ -1,11 +1,7 @@
 <template>
   <v-container fluid fill-height>
-    <v-layout v-if="newSpecialityPeople === 'AdmissionCommitteeHasNotStarted'" wrap justify-center>
-      <v-flex xs12 sm11 md7 lg5>
-        <v-card class="no-data">Приёмная комиссия не работает</v-card>
-      </v-flex>
-    </v-layout>
-    <v-layout v-else wrap justify-center>
+    
+    <v-layout wrap justify-center>
       <v-flex v-if="loading" xs12 sm8 md5 offset-md1 justify-center class="loading-container">
         <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
       </v-flex>

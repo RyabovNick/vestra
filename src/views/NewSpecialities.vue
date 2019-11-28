@@ -5,11 +5,7 @@
         <v-progress-circular :size="70" :width="7" color="purple" indeterminate></v-progress-circular>
       </v-flex>
       <v-flex v-else xs11 justify-center>
-        <v-card
-          class="no-data"
-          v-if="newSpecialities === 'AdmissionCommitteeHasNotStarted'"
-        >Приёмная комиссия не работает</v-card>
-        <v-card v-else>
+        <v-card>
           <v-card-title>
             <v-text-field
               v-model="search"
